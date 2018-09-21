@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Classe de test</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="../src/components.html">
+                      src/components.ts
+                </a>
+              
+                
+                <a class="source" href="../src/displaySystem.html">
+                      src/displaySystem.ts
+                </a>
+              
+                
+                <a class="source" href="../src/entity.html">
+                      src/entity.ts
+                </a>
+              
+                
+                <a class="source" href="../src/graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="../src/inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="../src/logicSystem.html">
+                      src/logicSystem.ts
+                </a>
+              
+                
+                <a class="source" href="../src/main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="../src/pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="../src/scene.html">
+                      src/scene.ts
+                </a>
+              
+                
+                <a class="source" href="../src/system.html">
+                      src/system.ts
+                </a>
+              
+                
+                <a class="source" href="../src/utils.html">
+                      src/utils.ts
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                      tests/entity.ts
+                </a>
+              
+                
+                <a class="source" href="mockComponent.html">
+                      tests/mockComponent.ts
+                </a>
+              
+                
+                <a class="source" href="scene.html">
+                      tests/scene.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> { TestComponent, registerMock } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mockComponent'</span>;
+<span class="hljs-keyword">import</span> { Entity, IEntity, IEntityWalker, IComponentWalker } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/entity'</span>;
+<span class="hljs-keyword">import</span> { Scene } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/scene'</span>;
+<span class="hljs-keyword">import</span> { IComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/components'</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'chai'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="classe-de-test">Classe de test</h1>
+<p>Cette classe de test est utilisée avec <a href="https://mochajs.org/">Mocha</a>,
+une infrastructure permettant d’effectuer des tests unitaires.</p>
+<p>Les tests sont réalisés conjointement avec le module <a href="http://chaijs.com/">Chai</a>
+qui fournit des fonctions simplifiant les assertions avec
+les tests. On utilise ici les fonctions <a href="http://chaijs.com/api/bdd/">expect</a>
+de Chai, par choix.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h1 id="tests-sur-la-classe-entity-">Tests sur la classe <em>Entity</em></h1>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>describe(<span class="hljs-string">'Entity'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="-beforeeach-"><em>beforeEach</em></h2>
+<p>Cette méthode est exécutée par Mocha avant chaque test.
+On l’utilise pour nettoyer les méthodes statique témoin
+de la classe de composant de test et pour enregistrer
+notre module permettant de créer ces composants de test.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    registerMock();
+    TestComponent.onCreate = <span class="hljs-function">(<span class="hljs-params"> <span class="hljs-comment">/*comp*/</span></span>) =&gt;</span> { };
+    TestComponent.onSetup = <span class="hljs-function">(<span class="hljs-params"> <span class="hljs-comment">/*comp, descr*/</span></span>) =&gt;</span> { };
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="tests-unitaires">Tests unitaires</h2>
+<p>On vérifie ici si on peut créer un objet simple, et si
+l’objet créé est une instance de la classe d’objet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'le module peut être instancié'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> sceneObj = <span class="hljs-keyword">new</span> Entity();
+    expect(sceneObj).instanceof(Entity);
+    done();
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Une instance de la classe Entity devrait avoir
+ces méthodes et fonctions. Ce test vérifie qu’elles
+existent bel et bien, sans vérifier leur fonctionnement.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'a les méthodes requises'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> sceneObj = <span class="hljs-keyword">new</span> Entity();
+    expect(sceneObj).respondTo(<span class="hljs-string">'addComponent'</span>);
+    expect(sceneObj).respondTo(<span class="hljs-string">'getComponent'</span>);
+    expect(sceneObj).respondTo(<span class="hljs-string">'addChild'</span>);
+    expect(sceneObj).respondTo(<span class="hljs-string">'getChild'</span>);
+    expect(sceneObj).respondTo(<span class="hljs-string">'walkChildren'</span>);
+    expect(sceneObj).respondTo(<span class="hljs-string">'walkComponent'</span>);
+    done();
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Ce test vérifie si on peut ajouter un composant à
+l’objet, par la méthode <code>addComponent</code>. Cette méthode
+devrait instancier un nouveau composant de test, et on
+conclut donc le test dans la méthode statique appelée
+par le constructeur.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'peut ajouter un composant'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> sceneObj = <span class="hljs-keyword">new</span> Entity();
+
+    TestComponent.onCreate = <span class="hljs-function">(<span class="hljs-params">comp</span>) =&gt;</span> {
+      expect(comp.__type).equals(<span class="hljs-string">'TestComp'</span>);
+      expect(comp.owner).equals(sceneObj);
+      done();
+    };
+
+    sceneObj.addComponent(<span class="hljs-string">'TestComp'</span>);
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Ce test vérifie si on peut chercher un composant existant
+à l’aide de la méthode <code>getComponent</code>. On ajoute deux
+composants distincts à un objet, et on tente de les récupérer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'peut chercher un composant'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> sceneObj = <span class="hljs-keyword">new</span> Entity();
+    <span class="hljs-keyword">const</span> testComp = <span class="hljs-keyword">new</span> Map&lt;<span class="hljs-built_in">string</span>, IComponent&gt;();
+    TestComponent.onCreate = <span class="hljs-function">(<span class="hljs-params">comp</span>) =&gt;</span> {
+      testComp.set(comp.__type, comp);
+    };
+
+    sceneObj.addComponent(<span class="hljs-string">'TestComp'</span>);
+    sceneObj.addComponent(<span class="hljs-string">'TestOtherComp'</span>);
+    <span class="hljs-keyword">let</span> value = sceneObj.getComponent(<span class="hljs-string">'TestComp'</span>);
+    expect(value).instanceof(TestComponent);
+    expect(value).equals(testComp.get(<span class="hljs-string">'TestComp'</span>));
+    value = sceneObj.getComponent(<span class="hljs-string">'TestOtherComp'</span>);
+    expect(value).instanceof(TestComponent);
+    expect(value).equals(testComp.get(<span class="hljs-string">'TestOtherComp'</span>));
+    done();
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>On doit pouvoir visiter tous les composants de
+l’entité afin de pouvoir implémenter certains
+systèmes.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'peut itérer sur les composants'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> sceneObj = <span class="hljs-keyword">new</span> Entity();
+    <span class="hljs-keyword">const</span> visits = <span class="hljs-keyword">new</span> Map&lt;IComponent, <span class="hljs-built_in">number</span>&gt;();
+    TestComponent.onCreate = <span class="hljs-function">(<span class="hljs-params">comp</span>) =&gt;</span> {
+      visits.set(comp, <span class="hljs-number">0</span>);
+    };
+    <span class="hljs-keyword">const</span> fn: IComponentWalker = <span class="hljs-function">(<span class="hljs-params">c, n</span>) =&gt;</span> {
+      expect(visits.has(c)).true;
+      expect(c.__type).equals(n);
+      visits.set(c, visits.get(c)! + <span class="hljs-number">1</span>);
+    }
+
+    sceneObj.addComponent(<span class="hljs-string">'TestComp'</span>);
+    sceneObj.addComponent(<span class="hljs-string">'TestOtherComp'</span>);
+    sceneObj.walkComponent(fn);
+    visits.forEach(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> {
+      expect(v).equals(<span class="hljs-number">1</span>);
+    });
+    done();
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>On crée ici deux objets simples faisant office d’enfants
+et on les ajoute à un objet par la méthode <code>addChild</code>.
+On teste également la méthode <code>getChild</code> en vérifiant
+si les objets récupérés sont ceux qui ont été ajoutés.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'peut ajouter et chercher des enfants'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> sceneObj = <span class="hljs-keyword">new</span> Entity();
+    <span class="hljs-keyword">const</span> child1 = {
+      hello: <span class="hljs-string">'world'</span>
+    };
+    <span class="hljs-keyword">const</span> child2 = {
+      foo: <span class="hljs-string">'bar'</span>
+    };
+    sceneObj.addChild(<span class="hljs-string">'un'</span>, &lt;<span class="hljs-built_in">any</span>&gt;child1);
+    sceneObj.addChild(<span class="hljs-string">'deux'</span>, &lt;<span class="hljs-built_in">any</span>&gt;child2);
+    <span class="hljs-keyword">let</span> value = sceneObj.getChild(<span class="hljs-string">'un'</span>);
+    expect(value).equals(child1);
+    value = sceneObj.getChild(<span class="hljs-string">'deux'</span>);
+    expect(value).equals(child2);
+    done();
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>On doit pouvoir visiter tous les enfants de
+l’entité afin de pouvoir implémenter certains
+systèmes.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'peut itérer sur les enfants'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> sceneObj = <span class="hljs-keyword">new</span> Entity();
+    <span class="hljs-keyword">const</span> child1 = {
+      hello: <span class="hljs-string">'world'</span>
+    };
+    <span class="hljs-keyword">const</span> child2 = {
+      foo: <span class="hljs-string">'bar'</span>
+    };
+
+    <span class="hljs-keyword">const</span> visits = <span class="hljs-keyword">new</span> Map&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>&gt;();
+    <span class="hljs-keyword">const</span> fn: IEntityWalker = <span class="hljs-function">(<span class="hljs-params">e, n</span>) =&gt;</span> {
+      expect(visits.has(n)).true;
+      expect(sceneObj.getChild(n)).equals(e);
+      visits.set(n, visits.get(n)! + <span class="hljs-number">1</span>);
+    }
+
+    sceneObj.addChild(<span class="hljs-string">'un'</span>, &lt;<span class="hljs-built_in">any</span>&gt;child1);
+    sceneObj.addChild(<span class="hljs-string">'deux'</span>, &lt;<span class="hljs-built_in">any</span>&gt;child2);
+    visits.set(<span class="hljs-string">'un'</span>, <span class="hljs-number">0</span>);
+    visits.set(<span class="hljs-string">'deux'</span>, <span class="hljs-number">0</span>);
+    sceneObj.walkChildren(fn);
+    visits.forEach(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> {
+      expect(v).equals(<span class="hljs-number">1</span>);
+    });
+    done();
+  });
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

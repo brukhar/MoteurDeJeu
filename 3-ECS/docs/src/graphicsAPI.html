@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Fonctions d'affichage</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="components.html">
+                      src/components.ts
+                </a>
+              
+                
+                <a class="source" href="displaySystem.html">
+                      src/displaySystem.ts
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                      src/entity.ts
+                </a>
+              
+                
+                <a class="source" href="graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="logicSystem.html">
+                      src/logicSystem.ts
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="scene.html">
+                      src/scene.ts
+                </a>
+              
+                
+                <a class="source" href="system.html">
+                      src/system.ts
+                </a>
+              
+                
+                <a class="source" href="utils.html">
+                      src/utils.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/entity.html">
+                      tests/entity.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/mockComponent.html">
+                      tests/mockComponent.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/scene.html">
+                      tests/scene.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="fonctions-d-affichage">Fonctions d’affichage</h1>
+<p>Méthodes nécessaires pour charger et afficher
+des images à l’écran.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="variable-canvas-">Variable <em>canvas</em></h2>
+<p>Représente l’élément HTML où est rendu le jeu</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> canvas: HTMLCanvasElement;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="variable-ctx-">Variable <em>ctx</em></h2>
+<p>Représente le contexte de rendu, où s’exécutent
+les commandes pour contrôller l’affichage</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> ctx: CanvasRenderingContext2D;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="interface-idrawcommand-">Interface <em>IDrawCommand</em></h2>
+<p>Cette interface définit le contenu d’une instruction de rendu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IDrawCommand {
+  image: HTMLImageElement;
+  x: <span class="hljs-built_in">number</span>;
+  y: <span class="hljs-built_in">number</span>;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="variable-drawcommands-">Variable <em>drawCommands</em></h2>
+<p>Cette variable comprend une liste des instructions
+de rendu demandés pendant l’itération courante.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> drawCommands: IDrawCommand[] = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="m-thode-init-">Méthode <em>init</em></h2>
+<p>La méthode d’initialisation prend en paramètre le nom d’un objet de
+type <em>canvas</em> de la page web où dessiner. On y extrait
+et conserve alors une référence vers le contexte de rendu 2D.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params">canvasId: <span class="hljs-built_in">string</span></span>) </span>{
+  canvas = &lt;HTMLCanvasElement&gt;<span class="hljs-built_in">document</span>.getElementById(canvasId);
+  ctx = &lt;CanvasRenderingContext2D&gt;canvas.getContext(<span class="hljs-string">'2d'</span>);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="m-thode-loadimage-">Méthode <em>loadImage</em></h2>
+<p>Cette méthode instancie dynamiquement un objet du navigateur
+afin qu’il la charge. Ce chargement se faisant de façon
+asynchrone, on crée une <a href="http://bluebirdjs.com/docs/why-promises.html">promesse</a>
+qui sera <a href="http://bluebirdjs.com/docs/api/new-promise.html">résolue</a>
+lorsque l’image sera chargée.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadImage</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;HTMLImageElement&gt;<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params">resolve</span>) =&gt; {
+    <span class="hljs-keyword">const</span> imgDownload = <span class="hljs-keyword">new</span> Image(<span class="hljs-params"></span>);
+    imgDownload.onload = (<span class="hljs-params"></span>) =&gt; {
+      resolve(<span class="hljs-params">imgDownload</span>);
+    };
+    imgDownload.src = `../img/${name}.png`;
+  }</span>);
+}
+
+</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h2 id="m-thode-drawcenter-">Méthode <em>drawCenter</em></h2>
+<p>Cette méthode ajoute à la liste des commandes de rendu une
+image centrée aux coordonnées spécifiées.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">drawCenter</span>(<span class="hljs-params">img: HTMLImageElement, x: <span class="hljs-built_in">number</span>, y: <span class="hljs-built_in">number</span></span>) </span>{
+  drawCommands.push({
+    image: img,
+    x: x,
+    y: y,
+  });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="m-thode-renderframe-">Méthode <em>renderFrame</em></h2>
+<p>Cette méthode exécute les commandes de rendu en attente.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderFrame</span>(<span class="hljs-params"></span>) </span>{
+  ctx.clearRect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.width, canvas.height);
+  drawCommands.forEach(<span class="hljs-function">(<span class="hljs-params">c</span>) =&gt;</span> {
+    ctx.drawImage(c.image, c.x - (c.image.width / <span class="hljs-number">2</span>), c.y - (c.image.height / <span class="hljs-number">2</span>));
+  });
+  drawCommands.length = <span class="hljs-number">0</span>;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h2 id="m-thode-requestfullscreen-">Méthode <em>requestFullScreen</em></h2>
+<p>Méthode utilitaire pour mettre le canvas en plein écran.
+Il existe plusieurs méthodes selon le navigateur, donc on
+se doit de vérifier l’existence de celles-ci avant de les
+appeler.</p>
+<p>À noter qu’un script ne peut appeler le basculement en plein
+écran que sur une action explicite du joueur.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">requestFullScreen</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> method = canvas.requestFullscreen || canvas.webkitRequestFullScreen || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ };
+  method.apply(canvas);
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

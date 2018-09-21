@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Classe de test</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="../src/components.html">
+                      src/components.ts
+                </a>
+              
+                
+                <a class="source" href="../src/displaySystem.html">
+                      src/displaySystem.ts
+                </a>
+              
+                
+                <a class="source" href="../src/entity.html">
+                      src/entity.ts
+                </a>
+              
+                
+                <a class="source" href="../src/graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="../src/inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="../src/logicSystem.html">
+                      src/logicSystem.ts
+                </a>
+              
+                
+                <a class="source" href="../src/main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="../src/pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="../src/scene.html">
+                      src/scene.ts
+                </a>
+              
+                
+                <a class="source" href="../src/system.html">
+                      src/system.ts
+                </a>
+              
+                
+                <a class="source" href="../src/utils.html">
+                      src/utils.ts
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                      tests/entity.ts
+                </a>
+              
+                
+                <a class="source" href="mockComponent.html">
+                      tests/mockComponent.ts
+                </a>
+              
+                
+                <a class="source" href="scene.html">
+                      tests/scene.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> { TestComponent, registerMock } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mockComponent'</span>;
+<span class="hljs-keyword">import</span> { Entity, IEntity } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/entity'</span>;
+<span class="hljs-keyword">import</span> { Scene, ISceneDesc, ISceneWalker } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/scene'</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'chai'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="classe-de-test">Classe de test</h1>
+<p>Cette classe de test est utilisée avec <a href="https://mochajs.org/">Mocha</a>,
+une infrastructure permettant d’effectuer des tests unitaires.</p>
+<p>Les tests sont réalisés conjointement avec le module <a href="http://chaijs.com/">Chai</a>
+qui fournit des fonctions simplifiant les assertions avec
+les tests. On utilise ici les fonctions <a href="http://chaijs.com/api/bdd/">expect</a>
+de Chai, par choix.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h1 id="tests-sur-la-classe-scene-">Tests sur la classe <em>Scene</em></h1>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>describe(<span class="hljs-string">'Scene'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>On va avoir besoin de créer des scènes de test pour
+la plupart des tests, on crée donc une configuration qui sera
+réutilisée.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">const</span> sampleScene: ISceneDesc = {
+    empty: {
+      components: {},
+      children: {},
+    },
+    complex: {
+      components: {
+        comp1: {
+          hello: <span class="hljs-string">'world'</span>
+        },
+        comp2: {
+          foo: <span class="hljs-string">'bar'</span>
+        },
+      },
+      children: {
+        first: {
+          components: {},
+          children: {},
+        },
+        second: {
+          components: {},
+          children: {},
+        },
+      },
+    },
+    crossRef1: {
+      components: {
+        refComp1: {
+          target: <span class="hljs-string">'crossRef2'</span>
+        },
+      },
+      children: {},
+    },
+    crossRef2: {
+      components: {
+        refComp2: {
+          target: <span class="hljs-string">'crossRef1'</span>
+        },
+      },
+      children: {},
+    },
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Les noms des différents objets de la hiérarchie ci-dessus.
+On s’en servira pour vérifier les itérations sur l’ensemble
+des objets de la scène.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">const</span> sampleSceneObjNames = [
+    <span class="hljs-string">'empty'</span>,
+    <span class="hljs-string">'complex'</span>,
+    <span class="hljs-string">'first'</span>,
+    <span class="hljs-string">'second'</span>,
+    <span class="hljs-string">'crossRef1'</span>,
+    <span class="hljs-string">'crossRef2'</span>,
+  ];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Tableau associatif qui fait le lien entre les composants
+et le nom des objets qui les possèdent, pour vérifier les
+itérations sur l’ensemble des composants de la scène.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">const</span> sampleSceneCompMap = {
+    comp1: <span class="hljs-string">'complex'</span>,
+    comp2: <span class="hljs-string">'complex'</span>,
+    refComp1: <span class="hljs-string">'crossRef1'</span>,
+    refComp2: <span class="hljs-string">'crossRef2'</span>,
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="-beforeeach-"><em>beforeEach</em></h2>
+<p>Cette méthode est exécutée par Mocha avant chaque test.
+On l’utilise pour nettoyer les méthodes statique témoin
+de la classe de composant de test et pour enregistrer
+notre module permettant de créer ces composants de test.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    registerMock();
+    TestComponent.onCreate = <span class="hljs-function">(<span class="hljs-params"> <span class="hljs-comment">/*comp*/</span></span>) =&gt;</span> { };
+    TestComponent.onSetup = <span class="hljs-function">(<span class="hljs-params"> <span class="hljs-comment">/*comp, descr*/</span></span>) =&gt;</span> { };
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h2 id="tests-unitaires">Tests unitaires</h2>
+<p>On vérifie ici si on peut créer un objet simple, et si
+l’objet créé est une instance de la classe de scène.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'le module peut être instancié'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    Scene.create({})
+      .then(<span class="hljs-function">(<span class="hljs-params">scene</span>) =&gt;</span> {
+        expect(scene).instanceof(Scene);
+        done();
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        done(err || <span class="hljs-string">'Erreur inconnue'</span>);
+      });
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Une instance de la classe Scene devrait avoir ces méthodes
+et fonctions. Ce test vérifie qu’elles existent bel et bien,
+sans vérifier leur fonctionnement.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'a les méthodes requises'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    Scene.create({})
+      .then(<span class="hljs-function">(<span class="hljs-params">scene</span>) =&gt;</span> {
+        expect(scene).respondTo(<span class="hljs-string">'findObject'</span>);
+        expect(scene).respondTo(<span class="hljs-string">'walk'</span>);
+        done();
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        done(err || <span class="hljs-string">'Erreur inconnue'</span>);
+      });
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Ce test vérifie si il est possible de récupérer un objet
+de la scène par la méthode <code>findObject</code>. On crée une scène
+contenant quelques objets et on tente de les récupérer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'peut chercher un objet de la scène par son nom'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    Scene.create({
+      premier: {
+        components: {},
+        children: {},
+      },
+      second: {
+        components: {},
+        children: {},
+      },
+    })
+      .then(<span class="hljs-function">(<span class="hljs-params">scene</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> obj1 = scene.findObject(<span class="hljs-string">'premier'</span>);
+        expect(obj1).exist;
+        expect(obj1).instanceof(Entity);
+        <span class="hljs-keyword">const</span> obj2 = scene.findObject(<span class="hljs-string">'second'</span>);
+        expect(obj2).exist;
+        expect(obj2).instanceof(Entity);
+        done();
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        done(err || <span class="hljs-string">'Erreur inconnue'</span>);
+      });
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Ce test vérifie qu’il est possible de créer les objets
+à partir d’une structure de description. On tente par la
+suite de chercher chaque objet de la liste des objets
+qui doivent exister.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'instancie les objets depuis une description'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    Scene.create(sampleScene)
+      .then(<span class="hljs-function">(<span class="hljs-params">scene</span>) =&gt;</span> {
+        sampleSceneObjNames.forEach(<span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> {
+          <span class="hljs-keyword">const</span> obj = scene.findObject(name);
+          expect(obj).exist;
+          expect(obj).instanceof(Entity);
+        });
+        done();
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        done(err || <span class="hljs-string">'Erreur inconnue'</span>);
+      });
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Certains composants doivent faire référence à d’autres. C’est
+ce qui motive l’existence de la méthode <code>setup</code> de ceux-ci,
+en plus du constructeur. Pour tester ça, on modifie la méthode
+statique <em>onSetup</em> du composant de test afin qu’il tente
+de récupérer des références vers d’autres objets. On s’attend
+à ce que ces objets existent, même s’ils n’ont pas encore été
+complètement configurés.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'gère correctement les références croisées'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> calls = <span class="hljs-keyword">new</span> Map&lt;<span class="hljs-built_in">string</span>, TestComponent&gt;();
+    TestComponent.onSetup = <span class="hljs-function">(<span class="hljs-params">comp, descr</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (!(<span class="hljs-regexp">/^refComp/</span>.test(comp.__type))) {
+        <span class="hljs-keyword">return</span>;
+      }
+      expect(calls).not.property(comp.__type);
+      calls.set(comp.__type, comp);
+      <span class="hljs-keyword">const</span> refObj = Scene.current.findObject(descr.target);
+      expect(refObj).exist;
+      expect(refObj).instanceof(Entity);
+    };
+
+    Scene.create(sampleScene)
+      .then(<span class="hljs-function">(<span class="hljs-params">scene</span>) =&gt;</span> {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">2</span>; ++i) {
+          <span class="hljs-keyword">const</span> compName = <span class="hljs-string">`refComp<span class="hljs-subst">${i}</span>`</span>;
+          <span class="hljs-keyword">const</span> objName = <span class="hljs-string">`crossRef<span class="hljs-subst">${i}</span>`</span>;
+          expect(calls.has(compName)).true;
+          <span class="hljs-keyword">const</span> obj = scene.findObject(objName)!;
+          <span class="hljs-keyword">const</span> comp = obj.getComponent(compName);
+          expect(calls.get(compName)).equals(comp);
+        }
+        done();
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        done(err || <span class="hljs-string">'Erreur inconnue'</span>);
+      });
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Les composants peuvent avoir besoin d’exécuter les étapes
+de configuration de manière asynchrone, à l’aide d’une <a href="http://bluebirdjs.com/docs/why-promises.html">promesse</a>.
+On doit attendre la résolution de celle-ci avant de terminer
+l’initialisation de la scène. Pour valider ce comportement,
+on modifie la méthode statique <em>onSetup</em> du composant de test
+afin qu’il incrémente un compteur et le décrémente après un
+temps d’attente. Le compteur devrait être à zéro si l’attente
+a été respectée.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'attend la fin des promesses des fonctions "setup" des composants'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delayPromise</span>(<span class="hljs-params">ms: <span class="hljs-built_in">number</span></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> {
+        setTimeout(resolve, ms);
+      });
+    }
+
+    <span class="hljs-keyword">let</span> callsCount = <span class="hljs-number">0</span>;
+    TestComponent.onSetup = <span class="hljs-function">(<span class="hljs-params">comp, descr</span>) =&gt;</span> {
+      callsCount++;
+      <span class="hljs-keyword">return</span> delayPromise(<span class="hljs-number">10</span>)
+        .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+          callsCount--;
+        });
+    };
+
+    Scene.create(sampleScene)
+      .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        expect(callsCount).equals(<span class="hljs-number">0</span>);
+        done();
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        done(err || <span class="hljs-string">'Erreur inconnue'</span>);
+      });
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>On doit pouvoir visiter tous les objets de la scène
+afin de pouvoir implémenter certains systèmes.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  it(<span class="hljs-string">'implémente une fonction permettant de visiter tous les objets'</span>, <span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> scene: Scene;
+    <span class="hljs-keyword">const</span> visits = <span class="hljs-keyword">new</span> Map&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>&gt;();
+    sampleSceneObjNames.forEach(<span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> {
+      visits.set(name, <span class="hljs-number">0</span>);
+    });
+    <span class="hljs-keyword">const</span> fn: ISceneWalker = <span class="hljs-function">(<span class="hljs-params">e, n</span>) =&gt;</span> {
+      expect(visits.has(n)).true;
+      expect(scene.findObject(n)).equals(e);
+      visits.set(n, visits.get(n)! + <span class="hljs-number">1</span>);
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve();
+    };
+    Scene.create(sampleScene)
+      .then(<span class="hljs-function">(<span class="hljs-params">newScene</span>) =&gt;</span> {
+        scene = newScene;
+        <span class="hljs-keyword">return</span> scene.walk(fn);
+      })
+      .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        visits.forEach(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> {
+          expect(v).equals(<span class="hljs-number">1</span>);
+        });
+        done();
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        done(err || <span class="hljs-string">'Erreur inconnue'</span>);
+      });
+  });
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

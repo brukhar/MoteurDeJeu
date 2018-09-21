@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Composant de test *TestComponent*</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="../src/components.html">
+                      src/components.ts
+                </a>
+              
+                
+                <a class="source" href="../src/displaySystem.html">
+                      src/displaySystem.ts
+                </a>
+              
+                
+                <a class="source" href="../src/entity.html">
+                      src/entity.ts
+                </a>
+              
+                
+                <a class="source" href="../src/graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="../src/inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="../src/logicSystem.html">
+                      src/logicSystem.ts
+                </a>
+              
+                
+                <a class="source" href="../src/main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="../src/pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="../src/scene.html">
+                      src/scene.ts
+                </a>
+              
+                
+                <a class="source" href="../src/system.html">
+                      src/system.ts
+                </a>
+              
+                
+                <a class="source" href="../src/utils.html">
+                      src/utils.ts
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                      tests/entity.ts
+                </a>
+              
+                
+                <a class="source" href="mockComponent.html">
+                      tests/mockComponent.ts
+                </a>
+              
+                
+                <a class="source" href="scene.html">
+                      tests/scene.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> { IComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/components'</span>;
+<span class="hljs-keyword">import</span> { Entity } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/entity'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="composant-de-test-testcomponent-">Composant de test <em>TestComponent</em></h1>
+<p>On définit ici un <em><a href="https://fr.wikipedia.org/wiki/Mock_%28programmation_orient%C3%A9e_objet%29">mock object</a></em>
+qui permet de tester les réactions de nos objets de scène
+avec les composants, sans avoir besoin d’avoir des composants
+réels.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TestComponent <span class="hljs-keyword">implements</span> IComponent {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="pointeurs-de-m-thodes-statiques">Pointeurs de méthodes statiques</h2>
+<p>Ces méthodes statiques n’ont aucun comportement par défaut
+et, par la nature de JavaScript, pourront être remplacées
+par des méthodes au besoin des tests.
+Elles seront appelées lors des différentes actions sur les
+composants de test afin d’en récupérer de l’information.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> onCreate: <span class="hljs-function">(<span class="hljs-params">comp: TestComponent</span>) =&gt;</span> <span class="hljs-built_in">void</span> = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { };
+  <span class="hljs-keyword">static</span> onSetup: <span class="hljs-function">(<span class="hljs-params">comp: TestComponent, desc: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; | <span class="hljs-built_in">void</span> = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="constructeur-de-la-classe-testcomponent-">Constructeur de la classe <em>TestComponent</em></h2>
+<p>Le constructeur conserve le type demandé et une référence
+vers l’objet qui l’a créé dans ses attributs. Il appelle
+ensuite la méthode statique <code>onCreate</code> avec une référence
+à lui-même</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> __type: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> owner: <span class="hljs-built_in">any</span></span>) {
+    TestComponent.onCreate(<span class="hljs-keyword">this</span>);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="m-thodes-du-composant">Méthodes du composant</h2>
+<p>Chaque méthode du composant appelle la méthode statique
+correspondant en passant une référence à lui-même,
+en plus des paramètres au besoin.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; | <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">return</span> TestComponent.onSetup(<span class="hljs-keyword">this</span>, descr);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, owner: <span class="hljs-built_in">any</span></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TestComponent(<span class="hljs-keyword">type</span>, owner);
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerMock</span>(<span class="hljs-params"></span>) </span>{
+  Entity.componentCreator = create;
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

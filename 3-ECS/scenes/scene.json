@@ -1,0 +1,146 @@
+{
+	"background": {
+		"components": {
+			"Position": {
+				"x": 512,
+				"y": 384
+			},
+			"Texture": {
+				"name": "background"
+			}
+		},
+		"children": {}
+	},
+	"ball": {
+		"components": {
+			"Position": {
+				"x": 512,
+				"y": 384
+			},
+			"Texture": {
+				"name": "ball"
+			},
+			"Motion": {
+				"dx": 500.0,
+				"dy": 500.0,
+				"minX": 48,
+				"maxX": 976,
+				"minY": 16,
+				"maxY": 752
+			},
+			"Collider": {
+				"width": 32,
+				"height": 32,
+				"obstacles": ["player1", "player2"]
+			}
+		},
+		"children": {}
+	},
+	"player1": {
+		"components": {
+			"Position": {
+				"x": 16,
+				"y": 384
+			},
+			"Texture": {
+				"name": "paddle"
+			},
+			"Joystick": {
+				"id": 0,
+				"speed": 5.0
+			},
+			"Collider": {
+				"width": 32,
+				"height": 200,
+				"obstacles": []
+			}
+		},
+		"children": {
+			"score": {
+				"components": {
+					"Position": {
+						"x": 256,
+						"y": 64
+					},
+					"Texture": {
+						"name": null
+					},
+					"TextureAtlas": {
+						"0": "0",
+						"1": "1",
+						"2": "2",
+						"3": "3",
+						"4": "4",
+						"5": "5",
+						"6": "6",
+						"7": "7",
+						"8": "8",
+						"9": "9"
+					},
+					"Score": {
+						"points": 0
+					}
+				},
+				"children": {}
+			}
+		}
+	},
+	"player2": {
+		"components": {
+			"Position": {
+				"x": 1008,
+				"y": 384
+			},
+			"Texture": {
+				"name": "paddle"
+			},
+			"Joystick": {
+				"id": 1,
+				"speed": 5.0
+			},
+			"Collider": {
+				"width": 32,
+				"height": 200,
+				"obstacles": []
+			}
+		},
+		"children": {
+			"score": {
+				"components": {
+					"Position": {
+						"x": 768,
+						"y": 64
+					},
+					"Texture": {
+						"name": null
+					},
+					"TextureAtlas": {
+						"0": "0",
+						"1": "1",
+						"2": "2",
+						"3": "3",
+						"4": "4",
+						"5": "5",
+						"6": "6",
+						"7": "7",
+						"8": "8",
+						"9": "9"
+					},
+					"Score": {
+						"points": 0
+					}
+				},
+				"children": {}
+			}
+		}
+	},
+	"referee": {
+		"components": {
+			"Referee": {
+				"players": ["player1", "player2"],
+				"ball": "ball"
+			}
+		},
+		"children": {}
+	}
+}

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Variables globales</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="utils.html">
+                      src/utils.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Utils <span class="hljs-keyword">from</span> <span class="hljs-string">'./utils'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> GraphicsAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'./graphicsAPI'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> InputAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'./inputAPI'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="variables-globales">Variables globales</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="constantes-et-m-thode-setupconstants-">Constantes et méthode <em>setupConstants</em></h2>
+<p>Ces valeurs font office de constantes dans ce fichier. Les
+valeurs indéfinies sont configurées dans la méthode <code>setupConstants</code>
+et sont déclarées ici afin qu’elles aient une portée globale à
+ce fichier.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> AreaWidth: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> AreaHeight: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">const</span> ScoreY = <span class="hljs-number">64</span>;
+<span class="hljs-keyword">let</span> ScoreP1X: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> ScoreP2X: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">const</span> BallSpeed = <span class="hljs-number">500</span>;
+<span class="hljs-keyword">const</span> PaddleSpeed = <span class="hljs-number">500</span>;
+<span class="hljs-keyword">let</span> PalP1X: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> PalP2X: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> BallRadius: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> PaddleHeight: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">const</span> MaxScore = <span class="hljs-number">9</span>;
+
+<span class="hljs-keyword">let</span> CenterX: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> CenterY: <span class="hljs-built_in">number</span>;
+
+<span class="hljs-keyword">let</span> PlayAreaMinX: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> PlayAreaMaxX: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> PlayAreaMinY: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> PlayAreaMaxY: <span class="hljs-built_in">number</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setupConstants</span>(<span class="hljs-params">canvas: HTMLCanvasElement</span>) </span>{
+  AreaWidth = canvas.width;
+  AreaHeight = canvas.height;
+  ScoreP1X = AreaWidth / <span class="hljs-number">4</span>;
+  ScoreP2X = AreaWidth * <span class="hljs-number">3</span> / <span class="hljs-number">4</span>;
+  PalP1X = images.paddle.width / <span class="hljs-number">2</span>;
+  PalP2X = AreaWidth - images.paddle.width / <span class="hljs-number">2</span>;
+  BallRadius = images.ball.width / <span class="hljs-number">2</span>;
+  PaddleHeight = images.paddle.height;
+
+  CenterX = AreaWidth / <span class="hljs-number">2</span>;
+  CenterY = AreaHeight / <span class="hljs-number">2</span>;
+
+  PlayAreaMinX = PalP1X + BallRadius;
+  PlayAreaMaxX = PalP2X - BallRadius;
+  PlayAreaMinY = ScoreY + BallRadius;
+  PlayAreaMaxY = AreaHeight - BallRadius;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="variables-de-jeu">Variables de jeu</h2>
+<p>Ces variables représentent l’état actuel du jeu et sont
+initialisées par la méthode <code>init</code> au lancement de la partie.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> scoreP1: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> scoreP2: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> ballX: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> ballY: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> p1Y: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> p2Y: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> dirX: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> dirY: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> dyP1: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">let</span> dyP2: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h1 id="fonctions-et-m-thodes">Fonctions et méthodes</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="interface-iimages-">Interface <em>IImages</em></h2>
+<p>Cette interface permet de déclarer un type pour un tableau
+associatif d’images.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IImages {
+  [key: <span class="hljs-built_in">string</span>]: HTMLImageElement;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="fonction-loadimages-">Fonction <em>loadImages</em></h2>
+<p>Cette fonction retourne une <a href="http://bluebirdjs.com/docs/why-promises.html">promesse</a>
+qui charge toutes les images demandées de façon asynchrone
+et qui assigne ensuite ces images au tableau associatif
+global <code>images</code>, par leur nom.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> images: IImages = {};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadImages</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> imgNames = [<span class="hljs-string">'0'</span>, <span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>, <span class="hljs-string">'4'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'6'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'background'</span>, <span class="hljs-string">'ball'</span>, <span class="hljs-string">'paddle'</span>];
+  <span class="hljs-keyword">const</span> promises: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;[] = [];
+
+  imgNames.forEach(<span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> p = GraphicsAPI.loadImage(name)
+      .then(<span class="hljs-function">(<span class="hljs-params">img</span>) =&gt;</span> {
+        images[name] = img;
+      });
+    promises.push(p);
+  });
+
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(promises);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h2 id="fonction-setupsystem-">Fonction <em>setupSystem</em></h2>
+<p>Cette fonction commence par charger les images du jeu et
+configure ensuite les constantes qui dépendent de celles-ci.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setupSystem</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> loadImages()
+    .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> setupConstants(GraphicsAPI.canvas);
+    });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="m-thode-init-">Méthode <em>init</em></h2>
+<p>Cette méthode initialise les variables de jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params"></span>) </span>{
+  scoreP1 = <span class="hljs-number">0</span>;
+  scoreP2 = <span class="hljs-number">0</span>;
+  ballX = CenterX;
+  ballY = CenterY;
+  p1Y = CenterY;
+  p2Y = CenterY;
+  dirX = <span class="hljs-number">1</span>;
+  dirY = <span class="hljs-number">1</span>;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h2 id="m-thode-updateinput-">Méthode <em>updateInput</em></h2>
+<p>Cette méthode de la boucle de jeu récupère les entrées
+pertinentes au jeu, soient les axes verticaux des joueurs
+et le temps écoulé réel depuis la dernière itération.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateInput</span>(<span class="hljs-params"></span>) </span>{
+  dyP1 = InputAPI.getAxisY(<span class="hljs-number">0</span>);
+  dyP2 = InputAPI.getAxisY(<span class="hljs-number">1</span>);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h2 id="m-thode-updatelogic-">Méthode <em>updateLogic</em></h2>
+<p>Cette méthode de la boucle de jeu effectue les calculs
+et fait la mise à jour de l’état du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateLogic</span>(<span class="hljs-params">dT: <span class="hljs-built_in">number</span></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>On commence par la mise à jour de la position des joueurs,
+en s’assurant qu’ils ne dépassent pas l’aire de jeu</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  p1Y += dyP1 * dT * PaddleSpeed;
+  p2Y += dyP2 * dT * PaddleSpeed;
+
+  p1Y = Utils.clamp(p1Y, PlayAreaMinY + PaddleHeight / <span class="hljs-number">2</span>, PlayAreaMaxY - PaddleHeight / <span class="hljs-number">2</span>);
+  p2Y = Utils.clamp(p2Y, PlayAreaMinY + PaddleHeight / <span class="hljs-number">2</span>, PlayAreaMaxY - PaddleHeight / <span class="hljs-number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>On fait également la mise à jour de la position de la balle.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ballX += dirX * BallSpeed * dT;
+  ballY += dirY * BallSpeed * dT;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Si la balle touche à la partie supérieure ou inférieure de
+l’aire de jeu, on inverse sa direction verticale.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> ((ballY &lt; PlayAreaMinY) || (ballY &gt; PlayAreaMaxY)) {
+    dirY *= <span class="hljs-number">-1</span>;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Si la balle est dans la zone contrôlée par le joueur de gauche,</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (ballX &lt; PlayAreaMinX) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>on vérifie si la balle touche à la palette du joueur, dans
+lequel cas on inverse la direction horizontale de la balle</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (Utils.inRange(ballY, p1Y - PaddleHeight / <span class="hljs-number">2</span>, p1Y + PaddleHeight / <span class="hljs-number">2</span>)) {
+      dirX *= <span class="hljs-number">-1</span>;
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>le cas échéant, on incrémente le score de l’adversaire et on
+remet la balle au centre.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">else</span> {
+      scoreP2++;
+      ballX = CenterX;
+      ballY = CenterY;
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>On fait de même pour le joueur de droite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ballX &gt; PlayAreaMaxX) {
+    <span class="hljs-keyword">if</span> (Utils.inRange(ballY, p2Y - PaddleHeight / <span class="hljs-number">2</span>, p2Y + PaddleHeight / <span class="hljs-number">2</span>)) {
+      dirX *= <span class="hljs-number">-1</span>;
+    } <span class="hljs-keyword">else</span> {
+      scoreP1++;
+      ballX = CenterX;
+      ballY = CenterY;
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Si un joueur atteint le score maximal, on affiche un
+message et on remet les scores à zéro.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> ((scoreP1 &gt; MaxScore) || (scoreP2 &gt; MaxScore)) {
+    alert(<span class="hljs-string">'Partie terminée'</span>);
+    scoreP1 = <span class="hljs-number">0</span>;
+    scoreP2 = <span class="hljs-number">0</span>;
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h2 id="m-thode-updateoutput-">Méthode <em>updateOutput</em></h2>
+<p>Cette méthode de la boucle de jeu affiche les éléments
+à l’écran.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateOutput</span>(<span class="hljs-params"></span>) </span>{
+  GraphicsAPI.drawCenter(images.background, AreaWidth / <span class="hljs-number">2</span>, AreaHeight / <span class="hljs-number">2</span>);
+  GraphicsAPI.drawCenter(images[scoreP1], ScoreP1X, ScoreY);
+  GraphicsAPI.drawCenter(images[scoreP2], ScoreP2X, ScoreY);
+  GraphicsAPI.drawCenter(images.ball, ballX, ballY);
+  GraphicsAPI.drawCenter(images.paddle, PalP1X, p1Y);
+  GraphicsAPI.drawCenter(images.paddle, PalP2X, p2Y);
+  GraphicsAPI.renderFrame();
+
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve();
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <h2 id="m-thode-launchgame-">Méthode <em>launchGame</em></h2>
+<p>Cette méthode initialise les valeurs du jeu et lance
+la boucle de jeu à une fréquence de 60 images par seconde.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">launchGame</span>(<span class="hljs-params"></span>) </span>{
+  init();
+  <span class="hljs-keyword">return</span> Utils.loop([updateInput, updateLogic, updateOutput]);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h2 id="m-thode-run-">Méthode <em>run</em></h2>
+<p>Cette méthode instancie les différents systèmes nécessaires
+et démarre l’exécution complète du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params">canvasId: <span class="hljs-built_in">string</span></span>) </span>{
+  GraphicsAPI.init(canvasId);
+
+  <span class="hljs-keyword">return</span> setupSystem()
+    .then(launchGame);
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

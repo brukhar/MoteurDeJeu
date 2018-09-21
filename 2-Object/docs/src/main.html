@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Interfaces générales</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="utils.html">
+                      src/utils.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Utils <span class="hljs-keyword">from</span> <span class="hljs-string">'./utils'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> GraphicsAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'./graphicsAPI'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> InputAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'./inputAPI'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="interfaces-g-n-rales">Interfaces générales</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="interface-igraphic-">Interface <em>IGraphic</em></h2>
+<p>Déclare une interface d’un objet supportant le rendu
+à l’écran.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IGraphic {
+  display(): <span class="hljs-built_in">void</span>;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="interface-iinput-">Interface <em>IInput</em></h2>
+<p>Déclare une interface d’un objet représentant une
+méthode d’entrée.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IInput {
+  dY: <span class="hljs-built_in">number</span>;
+  updateInput(): <span class="hljs-built_in">void</span>;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h1 id="classe-background-">Classe <em>Background</em></h1>
+<p>Cette classe représente l’arrière-plan du terrain de jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Background <span class="hljs-keyword">implements</span> IGraphic {
+  backgroundImage: HTMLImageElement;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-create-">Méthode statique <em>create</em></h2>
+<p>Puisque la classe instancie une image de façon asynchrone,
+on désire retourner une <a href="http://bluebirdjs.com/docs/why-promises.html">promesse</a>
+qui sera résolue quand tout sera complété. Pour ce faire,
+on utilise une fonction s’inspirant du patron de conception
+de <a href="https://fr.wikipedia.org/wiki/Fabrique_%28patron_de_conception%29">fabrique</a>
+au lieu de passer par le constructeur.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> create() {
+    <span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Background();
+    <span class="hljs-keyword">return</span> GraphicsAPI.loadImage(<span class="hljs-string">'background'</span>)
+      .then(<span class="hljs-function">(<span class="hljs-params">image</span>) =&gt;</span> {
+        obj.backgroundImage = image;
+        <span class="hljs-keyword">return</span> obj;
+      });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="m-thode-display-">Méthode <em>display</em></h2>
+<p>Cette méthode affiche l’image d’arrière-plan au centre de
+l’aire de jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  display() {
+    GraphicsAPI.drawCenter(<span class="hljs-keyword">this</span>.backgroundImage, Program.AreaWidth / <span class="hljs-number">2</span>, Program.AreaHeight / <span class="hljs-number">2</span>);
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h1 id="classe-paddle-">Classe <em>Paddle</em></h1>
+<p>Cette classe représente la palette d’un joueur.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Paddle <span class="hljs-keyword">implements</span> IGraphic {
+  y: <span class="hljs-built_in">number</span>;
+  paddleImage: HTMLImageElement;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-create-">Méthode statique <em>create</em></h2>
+<p>La même logique s’applique que la classe <code>Background</code>. Ici,
+on a un paramètre supplémentaire pour le constructeur pour
+spécifier la position horizontale de la palette.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> create(x: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Paddle(x);
+    <span class="hljs-keyword">return</span> GraphicsAPI.loadImage(<span class="hljs-string">'paddle'</span>)
+      .then(<span class="hljs-function">(<span class="hljs-params">image</span>) =&gt;</span> {
+        obj.paddleImage = image;
+        <span class="hljs-keyword">return</span> obj;
+      });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h2 id="constructeur-de-la-classe-paddle-">Constructeur de la classe <em>Paddle</em></h2>
+<p>Le constructeur ne fait qu’assigner les positions horizontale
+et verticale de l’objet. La position verticale <code>y</code> sera
+modifiée par les autres objets.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> x: <span class="hljs-built_in">number</span></span>) {
+    <span class="hljs-keyword">this</span>.y = <span class="hljs-number">0</span>;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h2 id="m-thode-display-">Méthode <em>display</em></h2>
+<p>Cette méthode affiche la palette d’un joueur à l’endroit
+désiré.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  display() {
+    GraphicsAPI.drawCenter(<span class="hljs-keyword">this</span>.paddleImage, <span class="hljs-keyword">this</span>.x, <span class="hljs-keyword">this</span>.y);
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h1 id="classe-ball-">Classe <em>Ball</em></h1>
+<p>Cette classe représente la balle du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Ball <span class="hljs-keyword">implements</span> IGraphic {
+  ballImage: HTMLImageElement;
+  x: <span class="hljs-built_in">number</span>;
+  y: <span class="hljs-built_in">number</span>;
+  dirX: <span class="hljs-built_in">number</span>;
+  dirY: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-create-">Méthode statique <em>create</em></h2>
+<p>La même logique s’applique que la classe <code>Background</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> create() {
+    <span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Ball();
+    <span class="hljs-keyword">return</span> GraphicsAPI.loadImage(<span class="hljs-string">'ball'</span>)
+      .then(<span class="hljs-function">(<span class="hljs-params">image</span>) =&gt;</span> {
+        obj.ballImage = image;
+        <span class="hljs-keyword">return</span> obj;
+      });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h2 id="constructeur-de-la-classe-ball-">Constructeur de la classe <em>Ball</em></h2>
+<p>Le constructeur initialise la direction de la balle et
+appelle la méthode de réinitialisation pour sa position.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">this</span>.dirX = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">this</span>.dirY = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">this</span>.reset();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h2 id="m-thode-update-">Méthode <em>update</em></h2>
+<p>Cette méthode met à jour la position de la balle. Si la
+position verticale dépasse l’aire de jeu, on inverse celle-ci.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update(dT: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">this</span>.x += <span class="hljs-keyword">this</span>.dirX * Program.BallSpeed * dT;
+    <span class="hljs-keyword">this</span>.y += <span class="hljs-keyword">this</span>.dirY * Program.BallSpeed * dT;
+
+    <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">this</span>.y &lt; Program.PlayAreaMinY) ||
+      (<span class="hljs-keyword">this</span>.y &gt; Program.PlayAreaMaxY)) {
+      <span class="hljs-keyword">this</span>.dirY *= <span class="hljs-number">-1</span>;
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h2 id="m-thode-display-">Méthode <em>display</em></h2>
+<p>Affiche la balle à sa position.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  display() {
+    GraphicsAPI.drawCenter(<span class="hljs-keyword">this</span>.ballImage, <span class="hljs-keyword">this</span>.x, <span class="hljs-keyword">this</span>.y);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h2 id="m-thode-reset-">Méthode <em>reset</em></h2>
+<p>Réinitialise la position de la balle lorsqu’il y a un point.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  reset() {
+    <span class="hljs-keyword">this</span>.x = Program.CenterX;
+    <span class="hljs-keyword">this</span>.y = Program.CenterY;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h2 id="m-thode-reversex-">Méthode <em>reverseX</em></h2>
+<p>Inverse la direction horizontale de la balle, lorsqu’elle
+touche la palette d’un joueur.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  reverseX() {
+    <span class="hljs-keyword">this</span>.dirX *= <span class="hljs-number">-1</span>;
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <h2 id="interface-inumbermap-">Interface <em>INumberMap</em></h2>
+<p>Déclare un type pour un tableau associatif liant une
+clé à un type d’image.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> INumberMap {
+  [key: <span class="hljs-built_in">number</span>]: HTMLImageElement;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h1 id="classe-score-">Classe <em>Score</em></h1>
+<p>La classe <em>Score</em> gère le pointage d’un joueur, ainsi
+que sa représentation visuelle lors de l’affichage.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Score <span class="hljs-keyword">implements</span> IGraphic {
+  numberImages: INumberMap = {};
+  points: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-create-">Méthode statique <em>create</em></h2>
+<p>La même logique s’applique que la classe <code>Paddle</code>.
+Il y a une nuance, par contre, qui consiste à conserver
+les images pour tous les chiffres dans un tableau
+associatif.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> create(x: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Score(x);
+    <span class="hljs-keyword">const</span> imgPromises = [];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">9</span>; ++i) {
+      <span class="hljs-keyword">const</span> p = GraphicsAPI.loadImage(i.toString())
+        .then(<span class="hljs-function">(<span class="hljs-params">img</span>) =&gt;</span> {
+          obj.numberImages[i] = img;
+        });
+      imgPromises.push(p);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(imgPromises)
+      .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> obj;
+      });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h2 id="constructeur-de-la-classe-score-">Constructeur de la classe <em>Score</em></h2>
+<p>Le constructeur conserve la position horizontale du score.
+Il appelle également la méthode <code>reset</code> pour
+mettre le pointage initial à zéro.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> x: <span class="hljs-built_in">number</span></span>) {
+    <span class="hljs-keyword">this</span>.reset();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h2 id="m-thode-display-">Méthode <em>display</em></h2>
+<p>Affiche le score du joueur en choisissant l’image appropriée,
+indexée par le score du joueur dans le tableau associatif.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  display() {
+    GraphicsAPI.drawCenter(<span class="hljs-keyword">this</span>.numberImages[<span class="hljs-keyword">this</span>.points], <span class="hljs-keyword">this</span>.x, Program.ScoreY);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h2 id="m-thode-increment-">Méthode <em>increment</em></h2>
+<p>Incrémente le score du joueur.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  increment() {
+    <span class="hljs-keyword">this</span>.points++;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h2 id="m-thode-reset-">Méthode <em>reset</em></h2>
+<p>Remet le pointage du joueur à zéro.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  reset() {
+    <span class="hljs-keyword">this</span>.points = <span class="hljs-number">0</span>;
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <h1 id="classe-joystick-">Classe <em>Joystick</em></h1>
+<p>La classe <em>Joystick</em> sert à contenir le déplacement
+désiré du joueur lors d’une itération de la boucle de jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Joystick <span class="hljs-keyword">implements</span> IInput {
+  dY: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <h2 id="constructeur-de-la-classe-joystick-">Constructeur de la classe <em>Joystick</em></h2>
+<p>Le constructeur conserve l’identifiant du joueur afin
+de savoir de quel joystick il a possession. On met également
+la variable indiquant le déplacement vertical à zéro.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> id: 0 | 1</span>) {
+    <span class="hljs-keyword">this</span>.dY = <span class="hljs-number">0</span>;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <h2 id="m-thode-updateinput-">Méthode <em>updateInput</em></h2>
+<p>Cette méthode est appelée lors de la mise à jour des
+entrées dans la boucle de jeu. On demande à l’API <em>input</em>
+la valeur de l’axe vertical pour le joueur désiré.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  updateInput() {
+    <span class="hljs-keyword">this</span>.dY = InputAPI.getAxisY(<span class="hljs-keyword">this</span>.id);
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <h1 id="classe-player-">Classe <em>Player</em></h1>
+<p>Un joueur est représenté par la classe <em>Player</em>, qui contient
+des références vers les éléments dont il a possession,
+soient sa palette, son score et son joystick. Il s’agit
+d’une classe par composition.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Player {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <h2 id="constructeur-de-la-classe-player-">Constructeur de la classe <em>Player</em></h2>
+<p>Le constructeur ne fait que conserver localement ses paramètres.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> paddle: Paddle, <span class="hljs-keyword">private</span> score: Score, <span class="hljs-keyword">private</span> input: IInput</span>) {
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <h2 id="propri-t-s-et-fonctions-currentscore-incrementscore-et-resetscore-">Propriétés et fonctions <em>currentScore</em>, <em>incrementScore</em> et <em>resetScore</em></h2>
+<p>Ces fonctions ont pour but d’éviter de coupler l’utilisation
+de la classe <em>Player</em> avec celle de <em>Score</em>. Une classe externe
+ne devrait jamais avoir besoin de connaître les détails
+d’implémentation d’une classe pour l’utiliser.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">get</span> currentScore() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.score.points;
+  }
+
+  incrementScore() {
+    <span class="hljs-keyword">this</span>.score.increment();
+  }
+
+  resetScore() {
+    <span class="hljs-keyword">this</span>.score.reset();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <h2 id="m-thode-update-">Méthode <em>update</em></h2>
+<p>La méthode de mise à jour de la classe <em>Player</em> met à jour
+la position verticale de sa palette selon le déplacement
+demandé par le joystick, en évitant de dépasser l’aire de jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update(dT: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">this</span>.paddle.y += <span class="hljs-keyword">this</span>.input.dY * dT * Program.PaddleSpeed;
+    <span class="hljs-keyword">this</span>.paddle.y = Utils.clamp(<span class="hljs-keyword">this</span>.paddle.y, Program.PlayAreaMinY + Program.PaddleHeight / <span class="hljs-number">2</span>, Program.PlayAreaMaxY - Program.PaddleHeight / <span class="hljs-number">2</span>);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <h2 id="fonction-collides-">Fonction <em>collides</em></h2>
+<p>Cette fonction retourne la valeur <em>vrai</em> si la position
+verticale de la balle est dans la zone de la palette du
+joueur.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  collides(ball: Ball) {
+    <span class="hljs-keyword">return</span> Utils.inRange(ball.y, <span class="hljs-keyword">this</span>.paddle.y - Program.PaddleHeight / <span class="hljs-number">2</span>, <span class="hljs-keyword">this</span>.paddle.y + Program.PaddleHeight / <span class="hljs-number">2</span>);
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <h1 id="classe-game-">Classe <em>Game</em></h1>
+<p>La classe <em>Game</em> représente le déroulement de la partie
+et contient ses acteurs directs, soient les joueurs et
+la balle. Il s’agit d’une classe par composition.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Game {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <h2 id="constructeur-de-la-classe-game-">Constructeur de la classe <em>Game</em></h2>
+<p>Le constructeur ne fait que conserver localement ses paramètres.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> ball: Ball, <span class="hljs-keyword">private</span> player1: Player, <span class="hljs-keyword">private</span> player2: Player</span>) {
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <h2 id="m-thode-update-">Méthode <em>update</em></h2>
+<p>Cette méthode est appelée par la boucle de jeu afin de
+mettre à jour l’ensemble de la logique du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update(dT: <span class="hljs-built_in">number</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>On commence par demander la mise à jour des différents
+intervenants.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.player1.update(dT);
+    <span class="hljs-keyword">this</span>.player2.update(dT);
+    <span class="hljs-keyword">this</span>.ball.update(dT);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>On vérifie ensuite la logique faisant interagit les
+joueurs et la balle. Si la balle est dans la zone
+contrôlée par le joueur de gauche,</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.ball.x &lt; Program.PlayAreaMinX) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>on vérifie si la balle touche à la palette du joueur, dans
+lequel cas on inverse la direction horizontale de la balle</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.player1.collides(<span class="hljs-keyword">this</span>.ball)) {
+        <span class="hljs-keyword">this</span>.ball.reverseX();
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>le cas échéant, on incrémente le score de l’adversaire et
+on remet la balle au centre.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.player2.incrementScore();
+        <span class="hljs-keyword">this</span>.ball.reset();
+      }
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>On fait de même pour le joueur de droite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.ball.x &gt; Program.PlayAreaMaxX) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.player2.collides(<span class="hljs-keyword">this</span>.ball)) {
+        <span class="hljs-keyword">this</span>.ball.reverseX();
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.player1.incrementScore();
+        <span class="hljs-keyword">this</span>.ball.reset();
+      }
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>Si un joueur atteint le score maximal, on affiche un
+message et on remet les scores à zéro.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">this</span>.player1.currentScore &gt; Program.MaxScore) ||
+      (<span class="hljs-keyword">this</span>.player2.currentScore &gt; Program.MaxScore)) {
+      alert(<span class="hljs-string">'Partie terminée'</span>);
+      <span class="hljs-keyword">this</span>.player1.resetScore();
+      <span class="hljs-keyword">this</span>.player2.resetScore();
+    }
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <h1 id="classe-program-">Classe <em>Program</em></h1>
+<p>La classe <em>Program</em> instancie et configure les composants
+nécessaires au bon déroulement du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Program {
+  <span class="hljs-keyword">static</span> AreaWidth: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> AreaHeight: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> ScoreY = <span class="hljs-number">64</span>;
+  <span class="hljs-keyword">static</span> ScoreP1X: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> ScoreP2X: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> BallSpeed = <span class="hljs-number">500</span>;
+  <span class="hljs-keyword">static</span> PaddleSpeed = <span class="hljs-number">500</span>;
+  <span class="hljs-keyword">static</span> PalP1X = <span class="hljs-number">16</span>;
+  <span class="hljs-keyword">static</span> PalP2X: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> BallRadius = <span class="hljs-number">16</span>;
+  <span class="hljs-keyword">static</span> PaddleHeight = <span class="hljs-number">200</span>;
+  <span class="hljs-keyword">static</span> MaxScore = <span class="hljs-number">9</span>;
+
+  <span class="hljs-keyword">static</span> CenterX: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> CenterY: <span class="hljs-built_in">number</span>;
+
+  <span class="hljs-keyword">static</span> PlayAreaMinX: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> PlayAreaMaxX: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> PlayAreaMinY: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">static</span> PlayAreaMaxY: <span class="hljs-built_in">number</span>;
+
+  <span class="hljs-keyword">static</span> game: Game;
+  <span class="hljs-keyword">static</span> graphics: IGraphic[];
+  <span class="hljs-keyword">static</span> inputs: IInput[];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-run-">Méthode statique <em>run</em></h2>
+<p>Cette méthode instancie les différents systèmes nécessaires
+et démarre l’exécution complète du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> run(canvasId: <span class="hljs-built_in">string</span>) {
+    Program.setupSystem(canvasId);
+    <span class="hljs-keyword">return</span> Program.launchGame();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-launchgame-">Méthode statique <em>launchGame</em></h2>
+<p>Cette méthode initialise les valeurs du jeu et lance
+la boucle de jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> launchGame() {
+    <span class="hljs-keyword">return</span> Program.init()
+      .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> Utils.loop([Program.updateInput, Program.updateLogic, Program.updateOutput]);
+      });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <h2 id="fonction-statique-init-">Fonction statique <em>init</em></h2>
+<p>Cette fonction instancie les différents objets du jeu.
+Puisque certains objets doivent être créés de façon
+asynchrones, on attend leur création via des promesses.
+On enregistre ensuite les éléments graphiques, les éléments
+d’entrée et le jeu dans des membres statiques afin de
+pouvoir faire leur mise à jour.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> init() {
+    <span class="hljs-keyword">let</span> background: Background;
+    <span class="hljs-keyword">let</span> ball: Ball;
+    <span class="hljs-keyword">let</span> paddle1: Paddle;
+    <span class="hljs-keyword">let</span> paddle2: Paddle;
+    <span class="hljs-keyword">let</span> score1: Score;
+    <span class="hljs-keyword">let</span> score2: Score;
+
+    <span class="hljs-keyword">const</span> promises = [
+      Background.create().then(<span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+        background = obj;
+      }),
+      Ball.create().then(<span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+        ball = obj;
+      }),
+      Paddle.create(Program.PalP1X).then(<span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+        paddle1 = obj;
+      }),
+      Paddle.create(Program.PalP2X).then(<span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+        paddle2 = obj;
+      }),
+      Score.create(Program.ScoreP1X).then(<span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+        score1 = obj;
+      }),
+      Score.create(Program.ScoreP2X).then(<span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+        score2 = obj;
+      }),
+    ];
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(promises)
+      .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">const</span> inp1 = <span class="hljs-keyword">new</span> Joystick(<span class="hljs-number">0</span>);
+        <span class="hljs-keyword">const</span> inp2 = <span class="hljs-keyword">new</span> Joystick(<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">const</span> player1 = <span class="hljs-keyword">new</span> Player(paddle1, score1, inp1);
+        <span class="hljs-keyword">const</span> player2 = <span class="hljs-keyword">new</span> Player(paddle2, score2, inp2);
+
+        Program.game = <span class="hljs-keyword">new</span> Game(ball, player1, player2);
+        Program.graphics = [background, paddle1, paddle2, ball, score1, score2];
+        Program.inputs = [inp1, inp2];
+      });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-updateinput-">Méthode statique <em>updateInput</em></h2>
+<p>Cette méthode de la boucle de jeu appelle
+les méthodes de mises à jour aux composants d’entrées.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> updateInput() {
+    Program.inputs.forEach(<span class="hljs-function">(<span class="hljs-params">inp</span>) =&gt;</span> inp.updateInput());
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-updatelogic-">Méthode statique <em>updateLogic</em></h2>
+<p>Cette méthode appelle la méthode de mise à jour de
+l’instance de la classe <em>Game</em>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> updateLogic(dT: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">return</span> Program.game.update(dT);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-updateoutput-">Méthode statique <em>updateOutput</em></h2>
+<p>Cette méthode de la boucle de jeu affiche les éléments
+à l’écran, en appelant les méthodes d’affichage des
+différents composants de sortie.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> updateOutput() {
+    Program.graphics.forEach(<span class="hljs-function">(<span class="hljs-params">g</span>) =&gt;</span> g.display());
+    GraphicsAPI.renderFrame();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-50">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-50">&#182;</a>
+              </div>
+              <h2 id="m-thode-statique-setupsystem-">Méthode statique <em>setupSystem</em></h2>
+<p>Cette méthode instancie les différents systèmes nécessaires
+et configure les constantes du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> setupSystem(canvasId: <span class="hljs-built_in">string</span>) {
+    GraphicsAPI.init(canvasId);
+    Program.setupConstants(GraphicsAPI.canvas);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-51">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-51">&#182;</a>
+              </div>
+              <h2 id="constantes-et-m-thode-statique-setupconstants-">Constantes et méthode statique <em>setupConstants</em></h2>
+<p>Ces valeurs représentent les constantes utilisées lors
+de l’exécution du jeu et les variables de configuration.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> setupConstants(canvas: HTMLCanvasElement) {
+    Program.AreaWidth = canvas.width;
+    Program.AreaHeight = canvas.height;
+    Program.ScoreP1X = Program.AreaWidth / <span class="hljs-number">4</span>;
+    Program.ScoreP2X = Program.AreaWidth * <span class="hljs-number">3</span> / <span class="hljs-number">4</span>;
+    Program.PalP2X = Program.AreaWidth - <span class="hljs-number">16</span>;
+
+    Program.CenterX = Program.AreaWidth / <span class="hljs-number">2</span>;
+    Program.CenterY = Program.AreaHeight / <span class="hljs-number">2</span>;
+
+    Program.PlayAreaMinX = Program.PalP1X + Program.BallRadius;
+    Program.PlayAreaMaxX = Program.PalP2X - Program.BallRadius;
+    Program.PlayAreaMinY = Program.ScoreY + Program.BallRadius;
+    Program.PlayAreaMaxY = Program.AreaHeight - Program.BallRadius;
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> run = Program.run;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

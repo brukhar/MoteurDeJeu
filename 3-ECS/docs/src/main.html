@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>main.ts</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="components.html">
+                      src/components.ts
+                </a>
+              
+                
+                <a class="source" href="displaySystem.html">
+                      src/displaySystem.ts
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                      src/entity.ts
+                </a>
+              
+                
+                <a class="source" href="graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="logicSystem.html">
+                      src/logicSystem.ts
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="scene.html">
+                      src/scene.ts
+                </a>
+              
+                
+                <a class="source" href="system.html">
+                      src/system.ts
+                </a>
+              
+                
+                <a class="source" href="utils.html">
+                      src/utils.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/entity.html">
+                      tests/entity.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/mockComponent.html">
+                      tests/mockComponent.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/scene.html">
+                      tests/scene.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>main.ts</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Utils <span class="hljs-keyword">from</span> <span class="hljs-string">'./utils'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> InputAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'./inputAPI'</span>;
+<span class="hljs-keyword">import</span> { Scene } <span class="hljs-keyword">from</span> <span class="hljs-string">'./scene'</span>;
+<span class="hljs-keyword">import</span> { DisplaySystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'./displaySystem'</span>;
+<span class="hljs-keyword">import</span> { LogicSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'./logicSystem'</span>;
+<span class="hljs-keyword">import</span> { ISystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'./system'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="variable-systems-">Variable <em>systems</em></h2>
+<p>Représente la liste des systèmes utilisés par notre moteur</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> systems: ISystem[];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="m-thode-run-">Méthode <em>run</em></h2>
+<p>Cette méthode initialise les différents systèmes nécessaires
+et démarre l’exécution complète du jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params">canvasId: <span class="hljs-built_in">string</span></span>) </span>{
+  setupSystem(canvasId);
+  <span class="hljs-keyword">return</span> launchGame();
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="m-thode-launchgame-">Méthode <em>launchGame</em></h2>
+<p>Cette méthode initialise la scène du jeu et lance la
+boucle de jeu.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">launchGame</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> Utils.loadJSON(<span class="hljs-string">'scenes/scene.json'</span>)
+    .then(<span class="hljs-function">(<span class="hljs-params">sceneDescription</span>) =&gt;</span> {
+      <span class="hljs-keyword">return</span> Scene.create(sceneDescription);
+    })
+    .then(<span class="hljs-function">(<span class="hljs-params">scene</span>) =&gt;</span> {
+      <span class="hljs-keyword">return</span> Utils.loop([iterate]);
+    });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="m-thode-iterate-">Méthode <em>iterate</em></h2>
+<p>Réalise une itération sur chaque système.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">iterate</span>(<span class="hljs-params">dT: <span class="hljs-built_in">number</span></span>) </span>{
+  <span class="hljs-keyword">let</span> p = <span class="hljs-built_in">Promise</span>.resolve();
+  systems.forEach(<span class="hljs-function">(<span class="hljs-params">s</span>) =&gt;</span> {
+    p = p.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> s.iterate(dT));
+  });
+  <span class="hljs-keyword">return</span> p;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="m-thode-setupsystem-">Méthode <em>setupSystem</em></h2>
+<p>Cette méthode initialise les différents systèmes nécessaires.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setupSystem</span>(<span class="hljs-params">canvasId: <span class="hljs-built_in">string</span></span>) </span>{
+  <span class="hljs-keyword">const</span> display = <span class="hljs-keyword">new</span> DisplaySystem(canvasId);
+  <span class="hljs-keyword">const</span> logic = <span class="hljs-keyword">new</span> LogicSystem();
+
+  systems = [display, logic];
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

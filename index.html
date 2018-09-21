@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Exercice #1</title>
+</head>
+<body>
+<h1 id="exercice-1">Exercice #1</h1>
+<h2 id="notes-pour-la-remise">Notes pour la remise</h2>
+<p>Cet exercice est dû pour le <strong>mercredi 19 septembre 2018</strong>.</p>
+<p>La remise électronique se fait via la plateforme Moodle.</p>
+<p>N&#39;oubliez pas d&#39;inscrire le nom de vos coéquipiers dans un fichier texte à la racine du projet!</p>
+<h2 id="objectif">Objectif</h2>
+<p>À l&#39;aide du projet <em>Pong</em> , dans le répertoire <em>3-ECS</em> disponible dans le dépôt de document du cours, section Cours 2, implémenter les structures de données nécessaires pour pouvoir exécuter le jeu.</p>
+<p>Le chargement des données, la logique spécifique au jeu et l&#39;accès aux différents API est fonctionnel. Il ne devrait être suffisant que de ne modifier les fichiers de classes <code>scene</code> et <code>entity</code>, qui représentent respectivement des classes de système et d&#39;entité.</p>
+<p>Les fonctionnalités nécessaires peuvent être validées par des tests unitaires. Ces tests peuvent être déclenchés en ouvrant
+la page <em>test.html</em> dans un navigateur Web, en console en exécutant <code>npm run test</code> depuis le dossier du projet, ou lancés
+via le déboggueur de <a href="https://code.visualstudio.com/">Visual Studio Code</a>.</p>
+<p><a href="https://nodejs.org/en/">Node.js</a> est essentiel pour installer les dépendances du projet. Lorsqu&#39;installé, exécuter la commande <code>npm install</code> depuis le dossier du projet pour installer les dépendances nécessaires.</p>
+<h2 id="errata">Errata</h2>
+<ul>
+<li>Les tests relatifs à l’ajout d’objets et leur recherche ne vérifient pas les doublons de noms d’objets. C’est volontaire, mais peut causer certains problèmes où l’ensemble des tests passent sans que le jeu ne soit complètement fonctionnel. Le comportement souhaité est qu’une recherche renvoie n’importe lequel des objets avec le même nom, et que tous les objets partageant le même nom continuent d’exister et d’être mis à jour.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Le langage utilisé est <a href="https://www.typescriptlang.org/">TypeScript</a>, qui est un dialecte de JavaScript ajoutant le concept de &quot;types&quot; au langage afin de limiter les erreurs. Ce langage doit être compilé afin d&#39;être utilisable.</li>
+<li>La documentation des fichiers est extraite dans les répertoires <em>docs</em> , et est extraite avec l’outil <a href="https://jashkenas.github.io/docco/">docco</a>.</li>
+<li>Aucun effort d&#39;optimisation n&#39;a été fait, dans le but de demeurer simple et compréhensible.</li>
+<li>Tout le code est directement inspiré de ce qui a été élaboré en classe pendant le deuxième cours, sous réserve de quelques correctifs techniques.</li>
+<li>N’hésitez-pas à vous pratiquer avec les projets de code séquentiel ou objet afin de bien saisir la syntaxe!</li>
+<li>Pour des raisons de sécurité, les navigateurs vont refuser de charger des fichiers de façon asynchrone lorsque le protocole de fichiers locaux est utilisé (adresses de type <code>file://</code>). Pour pallier à ça, il peut être plus simple d&#39;installer un serveur Web (voir dernière section).</li>
+<li>Utilisez la console JavaScript de votre navigateur  (<a href="https://developer.mozilla.org/fr/docs/Outils/Console_Web">Firefox</a>, <a href="https://developers.google.com/web/tools/chrome-devtools/debug/console/console-ui">Chrome</a>, <a href="https://developer.apple.com/safari/tools/">Safari</a>, <a href="https://msdn.microsoft.com/en-us/library/dn255006%28v=vs.85%29.aspx">IE</a>, <a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/f12-devtools-guide/console/">Edge</a>) et les méthodes de l’objet <a href="https://developer.mozilla.org/fr/docs/Web/API/Console">console</a> pour débogger votre code!</li>
+<li>Je suggère d&#39;utiliser l&#39;environnement de développement <a href="https://code.visualstudio.com/">Visual Studio Code</a>, en suivant <a href="https://code.visualstudio.com/docs/languages/typescript">la procédure d&#39;installation de TypeScript</a>.</li>
+<li>Il y a présentement <a href="https://github.com/Microsoft/vscode/issues/32400">un bug sous Windows</a> avec la génération du projet si l&#39;arborescence comprend des espaces, des traits d&#39;union ou autres caractères semblables. La génération peut néanmoins être exécutée en utilisant les tâches préfixée de &quot;WIN+Espaces&quot;.</li>
+</ul>
+<h2 id="informations-compl-mentaires-concernant-les-promesses-">Informations complémentaires concernant les &quot;promesses&quot;</h2>
+<p>Le concept de &quot;promesses&quot; peut être nouveau pour la plupart des développeurs. Je vais tenter de clarifier le concept ici. Je vous invite à jeter un oeil à <a href="http://bluebirdjs.com/docs/why-promises.html">http://bluebirdjs.com/docs/why-promises.html</a></p>
+<p>En une seule phrase, c&#39;est une une syntaxe séquentielle pour l&#39;enchaînement de fonctions asynchrones.</p>
+<p>Dans un langage comme JavaScript, il est usuel d&#39;utiliser des fonctions de rappel (callback) pour réagir aux entrées des utilisateurs, ou encore attendre après des événements de durée inconnue (par exemple, le téléchargement d&#39;un fichier). On aura alors une fonction du genre (en pseudo-code):</p>
+<pre><code>function loadFile(url, callback) {
+  var downloader = new URLDownloader(url);
+  downloader.onLoad = function {
+    callback(downloader.content);
+  };
+}
+
+loadFile(&#39;http://example.com/file.txt&#39;, function (content) {
+  // qqch avec le contenu
+});
+</code></pre><p>Ça va bien, tant qu&#39;on reste dans des cas simples. La complexité survient rapidement. Imaginez, par exemple, que le contenu du fichier téléchargé comprend une liste d&#39;images à charger, et qu&#39;on désire attendre après le téléchargement de l&#39;ensemble avant de faire quelque chose. On doit alors user d&#39;astuce pour implémenter correctement l&#39;attente:</p>
+<pre><code>function loadFile(url, callback) {
+  var downloader = new URLDownloader(url);
+  downloader.onLoad = function {
+    callback(downloader.content);
+  };
+}
+
+function loadImages(listUrl, callback) {
+  loadFile(listUrl, function (content) {
+    var entries = content.split(/\r?\n/);
+    var images = [];
+    for (var i = 0; i &lt; entries.length; ++i) {
+      loadFile(entries[i], function (image) {
+        images.push(image);
+        if (images.length == entries.length)
+          callback(images);
+      });
+    }
+  });
+}
+
+loadImages(&#39;http://example.com/images.txt&#39;, function (images) {
+  // qqch avec les images
+});
+</code></pre><p>Les promesses permettent d&#39;abstraire ces fonctions de rappel imbriquées, en retournant un objet qui va appeler automatiquement sa méthode &quot;then&quot; (&quot;ensuite&quot;) lorsqu&#39;une fonction &quot;resolve&quot; associée à cet objet est appelée. Une promesse peut également être résolue avec une autre promesse, dans quel cas la méthode &quot;then&quot; ne sera appelée que lorsque cette autre promesse sera elle-même résolue. L&#39;implémentation de &quot;<a href="http://bluebirdjs.com">bluebird</a>&quot; fournit également des méthodes utilitaire pour l&#39;itération sur des objets de promesses et autres trucs utiles.  En utilisant les promesses, on peut alors implémenter le bout de code précédent comme suit:</p>
+<pre><code>function loadFile(url) {
+  // &quot;resolve&quot; est la fonction pour résoudre la promesse
+  var action = function(resolve) {
+  var downloader = new URLDownloader(url);
+  downloader.onLoad = function {
+    resolve(downloader.content);
+  };
+
+  return new Promise(action);
+}
+
+loadFile(&#39;http://example.com/images.txt&#39;)
+.then(function(listUrl) {
+  var entries = content.split(/\r?\n/);
+  return Promise.each(entries, loadFile);
+})
+.then(function(images) {
+  // qqch avec les images
+});
+</code></pre><p>Dans le cadre de l&#39;exercice, on doit séparer la création des objets de leur configuration, leur configuration pouvant être asynchrone (certains composant doivent, par exemple, télécharger des images). On aura donc quelque chose qui ressemble à (encore une fois du pseudo-code, pas nécessairement conforme à l&#39;implémentation de l&#39;exercice):</p>
+<pre><code>function createScene(description) {
+  var objects = [];
+  var keys = Object.keys(description);
+  for (var i = 0; i &lt; keys.length; ++i) {
+    object.push(new SceneObject(description[keys[i]]));
+    // où le constructeur crée les composants
+  }
+
+  return Promise.each(objects, function (obj, index) {
+    return obj.setup(description[keys[index]]);
+    // la méthode &quot;setup&quot; retourne une promesse
+  });
+}
+</code></pre><h2 id="installation-d-un-serveur-web-simple">Installation d&#39;un serveur Web simple</h2>
+<p>Afin d&#39;éviter les problèmes liés aux requêtes inter-origines lors de l&#39;utilisation du protocole <code>file://</code>, il peut être pratique d&#39;installer un serveur Web.</p>
+<p>Je vous suggère d&#39;installer <a href="https://nodejs.org/en/">Node.js</a>, en version courante. Ce logiciel est de toute façon
+nécessaire à la configuration du travail.</p>
+<p>Lorsqu&#39;installé, depuis l&#39;invite de commande du système d&#39;exploitation, installer le serveur <a href="https://github.com/indexzero/http-server">http-server</a> via la commande:</p>
+<pre><code>npm install -g http-server
+</code></pre><p>Vous devrez probablement exécuter la commande avec des droits d&#39;administrateur afin que l&#39;installation fonctionne correctement.</p>
+<p>Finalement, depuis le dossier de projet, vous pourrez exécuter le serveur, en spécifiant le port d&#39;écoute:</p>
+<pre><code>http-server -c-1 -p 8080
+</code></pre><p>Dans cet exemple, on spécifie le port d&#39;écoute <em>8080</em> (les fichiers seront donc disponibles via l&#39;URL <a href="http://localhost:8080/">http://localhost:8080/</a>), et l&#39;option <em>-c-1</em> indique de ne pas conserver les fichiers en cache, ce qui est utile pour le développement.</p>
+
+</body>
+</html>

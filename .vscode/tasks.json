@@ -1,0 +1,128 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Sequential build",
+      "type": "typescript",
+      "tsconfig": "1-Sequential/tsconfig.json",
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Object build",
+      "type": "typescript",
+      "tsconfig": "2-Object/tsconfig.json",
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "ECS build",
+      "type": "typescript",
+      "tsconfig": "3-ECS/tsconfig.json",
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "ECS build Web tests",
+      "type": "typescript",
+      "tsconfig": "3-ECS/tsconfig.mocha.html.json",
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "ECS build Node.js tests",
+      "type": "typescript",
+      "tsconfig": "3-ECS/tsconfig.mocha.node.json",
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "ECS Build All",
+      "dependsOn": [
+        "ECS build",
+        "ECS build Web tests",
+        "ECS build Node.js tests"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "WIN+Espaces Sequential build",
+      "type": "shell",
+      "command": "tsc",
+      "args": ["-p", "1-Sequential/tsconfig.json"],
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "WIN+Espaces Object build",
+      "type": "shell",
+      "command": "tsc",
+      "args": ["-p", "2-Object/tsconfig.json"],
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "WIN+Espaces ECS build",
+      "type": "shell",
+      "command": "tsc",
+      "args": ["-p", "3-ECS/tsconfig.json"],
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "WIN+Espaces ECS build Web tests",
+      "type": "shell",
+      "command": "tsc",
+      "args": ["-p", "3-ECS/tsconfig.mocha.html.json"],
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "WIN+Espaces ECS build Node.js tests",
+      "type": "shell",
+      "command": "tsc",
+      "args": ["-p", "3-ECS/tsconfig.mocha.node.json"],
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "WIN+Espaces ECS Build All",
+      "dependsOn": [
+        "WIN+Espaces ECS build",
+        "WIN+Espaces ECS build Web tests",
+        "WIN+Espaces ECS build Node.js tests"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

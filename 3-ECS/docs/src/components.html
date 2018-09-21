@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Classes de support</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="components.html">
+                      src/components.ts
+                </a>
+              
+                
+                <a class="source" href="displaySystem.html">
+                      src/displaySystem.ts
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                      src/entity.ts
+                </a>
+              
+                
+                <a class="source" href="graphicsAPI.html">
+                      src/graphicsAPI.ts
+                </a>
+              
+                
+                <a class="source" href="inputAPI.html">
+                      src/inputAPI.ts
+                </a>
+              
+                
+                <a class="source" href="logicSystem.html">
+                      src/logicSystem.ts
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                      src/main.ts
+                </a>
+              
+                
+                <a class="source" href="pong.html">
+                      src/pong.ts
+                </a>
+              
+                
+                <a class="source" href="scene.html">
+                      src/scene.ts
+                </a>
+              
+                
+                <a class="source" href="system.html">
+                      src/system.ts
+                </a>
+              
+                
+                <a class="source" href="utils.html">
+                      src/utils.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/entity.html">
+                      tests/entity.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/mockComponent.html">
+                      tests/mockComponent.ts
+                </a>
+              
+                
+                <a class="source" href="../tests/scene.html">
+                      tests/scene.ts
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> GraphicsAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'./graphicsAPI'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> InputAPI <span class="hljs-keyword">from</span> <span class="hljs-string">'./inputAPI'</span>;
+<span class="hljs-keyword">import</span> { IEntity } <span class="hljs-keyword">from</span> <span class="hljs-string">'./entity'</span>;
+<span class="hljs-keyword">import</span> { IDisplayComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./displaySystem'</span>;
+<span class="hljs-keyword">import</span> { ILogicComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./logicSystem'</span>;
+<span class="hljs-keyword">import</span> { Scene } <span class="hljs-keyword">from</span> <span class="hljs-string">'./scene'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="classes-de-support">Classes de support</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="interface-icomponent-">Interface <em>IComponent</em></h2>
+<p>Représente un composant minimal.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IComponent {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h3 id="variable-__type-">Variable <em>__type</em></h3>
+<p>Cette variable conserve le nom du type, pour faire
+certaines vérifications à l’exécution, puisqu’on n’est
+pas dans un langage fortement typé.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  __type: <span class="hljs-built_in">string</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Cette méthode est appelée pour configurer le composant après
+que tous les composants d’un objet aient été créés. Cette
+méthode peut retourner une promesse.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(desc: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; | <span class="hljs-built_in">void</span>;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="classe-vector2-">Classe <em>Vector2</em></h2>
+<p>Classe pour représenter des vecteurs à deux dimensions.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IVector2Desc {
+  x: <span class="hljs-built_in">number</span>;
+  y: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">class</span> Vector2 {
+  x: <span class="hljs-built_in">number</span>;
+  y: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h3 id="constructeur-de-la-classe-vector2-">Constructeur de la classe <em>Vector2</em></h3>
+<p>Le constructeur de la classe de vecteur prend en
+paramètre un objet comprenant les propriétés <code>x</code> et <code>y</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">descr: IVector2Desc</span>) {
+    <span class="hljs-keyword">this</span>.x = descr.x;
+    <span class="hljs-keyword">this</span>.y = descr.y;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h3 id="fonction-clone-">Fonction <em>clone</em></h3>
+<p>Les objets JavaScript étant passés par référence, cette
+fonction permet de créer rapidement une copie de cette
+structure afin d’y effectuer des opérations sans modifier
+l’original.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  clone() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Vector2({
+      x: <span class="hljs-keyword">this</span>.x,
+      y: <span class="hljs-keyword">this</span>.y,
+    });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h3 id="fonction-add-">Fonction <em>add</em></h3>
+<p>Cette fonction retourne un nouveau vecteur qui représente
+la somme de ce vecteur et de celui passé en paramètre.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  add(other: Vector2) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Vector2({
+      x: <span class="hljs-keyword">this</span>.x + other.x,
+      y: <span class="hljs-keyword">this</span>.y + other.y,
+    });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h3 id="fonciton-scale-">Fonciton <em>scale</em></h3>
+<p>Cette fonction retourne un nouveau vecteur qui représente
+le produit de ce vecteur par une valeur scalaire.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  scale(factor: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Vector2({
+      x: <span class="hljs-keyword">this</span>.x * factor,
+      y: <span class="hljs-keyword">this</span>.y * factor,
+    });
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h2 id="classe-rectangle-">Classe <em>Rectangle</em></h2>
+<p>Classe pour représenter un rectangle.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IRectangleDesc {
+  xMin?: <span class="hljs-built_in">number</span>;
+  xMax?: <span class="hljs-built_in">number</span>;
+  yMin?: <span class="hljs-built_in">number</span>;
+  yMax?: <span class="hljs-built_in">number</span>;
+  x?: <span class="hljs-built_in">number</span>;
+  y?: <span class="hljs-built_in">number</span>;
+  width?: <span class="hljs-built_in">number</span>;
+  height?: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">interface</span> IRectangleDescAlt {
+  x: <span class="hljs-built_in">number</span>;
+  y: <span class="hljs-built_in">number</span>;
+  width: <span class="hljs-built_in">number</span>;
+  height: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">class</span> Rectangle {
+  xMin: <span class="hljs-built_in">number</span>;
+  xMax: <span class="hljs-built_in">number</span>;
+  yMin: <span class="hljs-built_in">number</span>;
+  yMax: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h3 id="constructeur-de-la-classe-rectangle-">Constructeur de la classe <em>Rectangle</em></h3>
+<p>Le constructeur de cette classe prend en paramètre un
+objet pouvant définir soit le centre et la taille du
+rectangle (<code>x</code>, <code>y</code>, <code>width</code> et <code>height</code>) ou les côtés
+de celui-ci (<code>xMin</code>, <code>xMax</code>, <code>yMin</code> et <code>yMax</code>).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">descr: IRectangleDesc</span>) {
+    <span class="hljs-keyword">const</span> descrAlt = &lt;IRectangleDescAlt&gt;descr;
+    <span class="hljs-keyword">this</span>.xMin = descr.xMin || (descrAlt.x - descrAlt.width / <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">this</span>.xMax = descr.xMax || (descrAlt.x + descrAlt.width / <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">this</span>.yMin = descr.yMin || (descrAlt.y - descrAlt.height / <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">this</span>.yMax = descr.yMax || (descrAlt.y + descrAlt.height / <span class="hljs-number">2</span>);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h3 id="fonction-intersectswith-">Fonction <em>intersectsWith</em></h3>
+<p>Cette fonction retourne <em>vrai</em> si ce rectangle et celui
+passé en paramètre se superposent.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  intersectsWith(other: Rectangle) {
+    <span class="hljs-keyword">return</span> !(
+      (<span class="hljs-keyword">this</span>.xMin &gt;= other.xMax) ||
+      (<span class="hljs-keyword">this</span>.xMax &lt;= other.xMin) ||
+      (<span class="hljs-keyword">this</span>.yMin &gt;= other.yMax) ||
+      (<span class="hljs-keyword">this</span>.yMax &lt;= other.yMin)
+    );
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h1 id="classes-de-composants">Classes de composants</h1>
+<h2 id="classe-component-">Classe <em>Component</em></h2>
+<p>Cette classe est une classe de base pour l’ensemble des
+composants et implémente les méthodes par défaut.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> Component&lt;TDesc&gt; <span class="hljs-keyword">implements</span> IComponent {
+  __type: <span class="hljs-built_in">string</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h3 id="constructeur-de-la-classe-composant-">Constructeur de la classe <em>Composant</em></h3>
+<p>Le constructeur de cette classe prend en paramètre l’objet
+propriétaire du composant, et l’assigne au membre <code>owner</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> owner: IEntity</span>) {
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Cette méthode est appelée pour configurer le composant après
+que tous les composants d’un objet aient été créés. Cette
+méthode peut retourner une promesse.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: TDesc): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; | <span class="hljs-built_in">void</span> {
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h2 id="classe-positioncomponent-">Classe <em>PositionComponent</em></h2>
+<p>Ce composant fournit un concept de position à l’objet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">class</span> PositionComponent <span class="hljs-keyword">extends</span> Component&lt;IVector2Desc&gt; {
+  position: Vector2;
+  <span class="hljs-keyword">private</span> originalPosition: Vector2;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Les propriétés <code>x</code> et <code>y</code> de la description de ce composant
+initialisent la propriété <code>position</code> de cet objet, ainsi
+qu’une copie de ce vecteur dans la propriété <code>originalPosition</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: IVector2Desc) {
+    <span class="hljs-keyword">this</span>.position = <span class="hljs-keyword">new</span> Vector2(descr);
+    <span class="hljs-keyword">this</span>.originalPosition = <span class="hljs-keyword">this</span>.position.clone();
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <h3 id="m-thode-reset-">Méthode <em>reset</em></h3>
+<p>Un appel à cette méthode réinitialise la propriété <code>position</code>
+à sa valeur originale.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  reset() {
+    <span class="hljs-keyword">this</span>.position = <span class="hljs-keyword">this</span>.originalPosition.clone();
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h2 id="classe-texturecomponent-">Classe <em>TextureComponent</em></h2>
+<p>Ce composant permet d’afficher une image centrée selon la
+position d’un composant <em>PositionComponent</em> sur le même objet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> ITextureComponentDesc {
+  name?: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> TextureComponent <span class="hljs-keyword">extends</span> Component&lt;ITextureComponentDesc&gt; <span class="hljs-keyword">implements</span> IDisplayComponent {
+  image: HTMLImageElement;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Cette méthode charge une image dont le nom est désigné par
+la propriété <code>name</code> de la description. Cette propriété peut
+être omise, auquel cas il n’y aura tout simplement pas d’image
+de chargée. Cette méthode retourne une promesse qui se
+complète lorsque l’image est complètement chargée.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: ITextureComponentDesc) {
+    <span class="hljs-keyword">if</span> (!descr.name) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">return</span> GraphicsAPI.loadImage(descr.name)
+      .then(<span class="hljs-function">(<span class="hljs-params">image</span>) =&gt;</span> {
+        <span class="hljs-keyword">this</span>.image = image;
+      });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h3 id="m-thode-display-">Méthode <em>display</em></h3>
+<p>Si il y a une image chargée pour ce composant, on l’affiche
+à la position du composant <em>PositionComponent</em> de l’objet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  display() {
+    <span class="hljs-keyword">const</span> position = <span class="hljs-keyword">this</span>.owner.getComponent&lt;PositionComponent&gt;(<span class="hljs-string">'Position'</span>).position;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.image) {
+      GraphicsAPI.drawCenter(<span class="hljs-keyword">this</span>.image, position.x, position.y);
+    }
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h2 id="classe-motioncomponent-">Classe <em>MotionComponent</em></h2>
+<p>Cette classe représente le déplacement d’un objet dans un
+rectangle, selon une vélocité donnée allant en accélérant.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IMotionComponentDesc {
+  dx: <span class="hljs-built_in">number</span>;
+  dy: <span class="hljs-built_in">number</span>;
+  minX: <span class="hljs-built_in">number</span>;
+  maxX: <span class="hljs-built_in">number</span>;
+  minY: <span class="hljs-built_in">number</span>;
+  maxY: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">class</span> MotionComponent <span class="hljs-keyword">extends</span> Component&lt;IMotionComponentDesc&gt; <span class="hljs-keyword">implements</span> ILogicComponent {
+  velocity: Vector2;
+  <span class="hljs-keyword">private</span> originalVelocity: Vector2;
+  minX: <span class="hljs-built_in">number</span>;
+  maxX: <span class="hljs-built_in">number</span>;
+  minY: <span class="hljs-built_in">number</span>;
+  maxY: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Les propriétés <code>dx</code> et <code>dy</code> de la description de ce composant
+initialisent la propriété <code>velocity</code> de cet objet, ainsi
+qu’une copie de ce vecteur dans la propriété <code>originalVelocity</code>.
+Les propriétés <code>minX</code>, <code>maxX</code>, <code>minY</code> et <code>maxY</code> de la
+description sont conservées afin de limiter les déplacements.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: IMotionComponentDesc) {
+    <span class="hljs-keyword">this</span>.velocity = <span class="hljs-keyword">new</span> Vector2({
+      x: descr.dx,
+      y: descr.dy,
+    });
+    <span class="hljs-keyword">this</span>.originalVelocity = <span class="hljs-keyword">this</span>.velocity.clone();
+    <span class="hljs-keyword">this</span>.minX = descr.minX;
+    <span class="hljs-keyword">this</span>.maxX = descr.maxX;
+    <span class="hljs-keyword">this</span>.minY = descr.minY;
+    <span class="hljs-keyword">this</span>.maxY = descr.maxY;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h3 id="m-thode-update-">Méthode <em>update</em></h3>
+<p>La valeur de la propriété <code>position</code> du composant <em>PositionComponent</em>
+de l’objet associé est incrémentée par la vélocité de ce composant.
+Si la nouvelle position dépasse les bornes désirées, on inverse
+alors le déplacement dans l’axe de cette borne. On considère
+également une légère accélération à la vélocité horizontale
+pour des raisons de jouabilité.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update(dT: <span class="hljs-built_in">number</span>) {
+    <span class="hljs-keyword">const</span> positionComponent = <span class="hljs-keyword">this</span>.owner.getComponent&lt;PositionComponent&gt;(<span class="hljs-string">'Position'</span>);
+    <span class="hljs-keyword">const</span> newPosition = positionComponent.position.add(<span class="hljs-keyword">this</span>.velocity.scale(dT));
+    positionComponent.position = newPosition;
+
+    <span class="hljs-keyword">if</span> ((newPosition.y &lt; <span class="hljs-keyword">this</span>.minY) || (newPosition.y &gt; <span class="hljs-keyword">this</span>.maxY)) {
+      <span class="hljs-keyword">this</span>.velocity.y *= <span class="hljs-number">-1</span>;
+    }
+    <span class="hljs-keyword">if</span> ((newPosition.x &lt; <span class="hljs-keyword">this</span>.minX) || (newPosition.x &gt; <span class="hljs-keyword">this</span>.maxX)) {
+      <span class="hljs-keyword">this</span>.velocity.x *= <span class="hljs-number">-1.05</span>;
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <h3 id="m-thode-reset-">Méthode <em>reset</em></h3>
+<p>Un appel à cette méthode réinitialise la propriété <code>velocity</code>
+à sa valeur originale.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  reset() {
+    <span class="hljs-keyword">this</span>.velocity = <span class="hljs-keyword">this</span>.originalVelocity.clone();
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <h2 id="classe-collidercomponent-">Classe <em>ColliderComponent</em></h2>
+<p>Le composant <em>ColliderComponent</em> permet d’évaluer les collisions
+entre l’objet associé et une liste d’objets à vérifier.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IColliderComponentDesc {
+  width: <span class="hljs-built_in">number</span>;
+  height: <span class="hljs-built_in">number</span>;
+  obstacles: <span class="hljs-built_in">string</span>[];
+}
+
+<span class="hljs-keyword">class</span> ColliderComponent <span class="hljs-keyword">extends</span> Component&lt;IColliderComponentDesc&gt; <span class="hljs-keyword">implements</span> ILogicComponent {
+  width: <span class="hljs-built_in">number</span>;
+  height: <span class="hljs-built_in">number</span>;
+  collision: IEntity | <span class="hljs-literal">null</span>;
+  inZone: IEntity | <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">private</span> obstacles: IEntity[];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <h3 id="propri-t-area-">Propriété <em>area</em></h3>
+<p>Cette fonction retourne le rectangle de collision de l’objet
+en utilisant le composant <em>PositionComponent</em> associé.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">get</span> area() {
+    <span class="hljs-keyword">const</span> position = <span class="hljs-keyword">this</span>.owner.getComponent&lt;PositionComponent&gt;(<span class="hljs-string">'Position'</span>).position;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Rectangle({
+      x: position.x,
+      y: position.y,
+      width: <span class="hljs-keyword">this</span>.width,
+      height: <span class="hljs-keyword">this</span>.height,
+    });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <h3 id="propri-t-zone-">Propriété <em>zone</em></h3>
+<p>Cette fonction retourne un rectangle de collision de hauteur
+infini pour usage interne.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">get</span> zone() {
+    <span class="hljs-keyword">const</span> area = <span class="hljs-keyword">this</span>.area;
+    area.yMin = <span class="hljs-built_in">Number</span>.NEGATIVE_INFINITY;
+    area.yMax = <span class="hljs-built_in">Number</span>.POSITIVE_INFINITY;
+    <span class="hljs-keyword">return</span> area;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Les propriétés <code>width</code> et <code>height</code> de l’objet de description
+représentent les dimensions du rectangle de collision de
+l’objet, alors que le tableau <code>obstacles</code> comprend les noms
+des objets à évaluer pour tester les collisions. Les objets
+sont résolus à partir de leur nom et conservés dans le membre
+local <code>obstacles</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: IColliderComponentDesc) {
+    <span class="hljs-keyword">this</span>.width = descr.width;
+    <span class="hljs-keyword">this</span>.height = descr.height;
+    <span class="hljs-keyword">this</span>.obstacles = [];
+    descr.obstacles.forEach(<span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> {
+      <span class="hljs-keyword">this</span>.obstacles.push(Scene.current.findObject(name)!);
+    });
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <h3 id="m-thode-update-">Méthode <em>update</em></h3>
+<p>Chaque objet à vérifier pour collision est testé et, si leurs
+rectangles de collision se superposent, est assigné à la
+propriété <code>collision</code>. On fait de même pour vérifier si les
+objets sont dans la même zone horizontale, qui est alors
+associé à la propriété <code>inZone</code>. On ne considère ici qu’un
+seul objet en collision à la fois.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update() {
+    <span class="hljs-keyword">this</span>.collision = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>.inZone = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">const</span> area = <span class="hljs-keyword">this</span>.area;
+
+    <span class="hljs-keyword">this</span>.obstacles.forEach(<span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> otherCollider = obj.getComponent&lt;ColliderComponent&gt;(<span class="hljs-string">'Collider'</span>);
+      <span class="hljs-keyword">if</span> (area.intersectsWith(otherCollider.area)) {
+        <span class="hljs-keyword">this</span>.collision = obj;
+      }
+      <span class="hljs-keyword">if</span> (area.intersectsWith(otherCollider.zone)) {
+        <span class="hljs-keyword">this</span>.inZone = obj;
+      }
+    });
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <h2 id="classe-joystickcomponent-">Classe <em>JoystickComponent</em></h2>
+<p>Cette classe permet de déplacer le joueur selon l’entrée
+de ce dernier.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IJoystickComponentDesc {
+  id: <span class="hljs-number">0</span> | <span class="hljs-number">1</span>;
+  speed: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">class</span> JoystickComponent <span class="hljs-keyword">extends</span> Component&lt;IJoystickComponentDesc&gt; <span class="hljs-keyword">implements</span> ILogicComponent {
+  id: <span class="hljs-number">0</span> | <span class="hljs-number">1</span>;
+  speed: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>La description comprend un identifiant <code>id</code> pour le joueur,
+qui correspond au joystick désiré, et un multiplicateur
+<code>speed</code> qui représente l’envergure du déplacement.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: IJoystickComponentDesc) {
+    <span class="hljs-keyword">this</span>.id = descr.id;
+    <span class="hljs-keyword">this</span>.speed = descr.speed;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <h3 id="m-thode-update-">Méthode <em>update</em></h3>
+<p>On va chercher le déplacement désiré depuis le système
+d’entrées, et on ajoute ce déplacement à la position de
+l’objet par le composant <em>PositionComponent</em></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update() {
+    <span class="hljs-keyword">const</span> dy = InputAPI.getAxisY(<span class="hljs-keyword">this</span>.id);
+    <span class="hljs-keyword">const</span> position = <span class="hljs-keyword">this</span>.owner.getComponent&lt;PositionComponent&gt;(<span class="hljs-string">'Position'</span>).position;
+    position.y += dy * <span class="hljs-keyword">this</span>.speed;
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <h2 id="classe-textureatlascomponent-">Classe <em>TextureAtlasComponent</em></h2>
+<p>Cette classe permet de conserver un répertoire d’images,
+pouvant être choisi par leur nom.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> ITextureAtlasComponentDesc {
+  [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> ITextureAtlas {
+  [key: <span class="hljs-built_in">string</span>]: HTMLImageElement;
+}
+
+<span class="hljs-keyword">class</span> TextureAtlasComponent <span class="hljs-keyword">extends</span> Component&lt;ITextureAtlasComponentDesc&gt; {
+  atlas: ITextureAtlas;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Cette méthode crée un tableau associatif <code>atlas</code> qui fait
+la correspondance entre des noms et des images, tirées
+des propriétés de la description. Cette méthode retourne
+une promesse qui se complète lorsque toutes les images
+sont chargées.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: ITextureAtlasComponentDesc) {
+    <span class="hljs-keyword">this</span>.atlas = {};
+    <span class="hljs-keyword">const</span> promises: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;[] = [];
+    <span class="hljs-built_in">Object</span>.keys(descr).forEach(<span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> p = GraphicsAPI.loadImage(descr[key])
+        .then(<span class="hljs-function">(<span class="hljs-params">image</span>) =&gt;</span> {
+          <span class="hljs-keyword">this</span>.atlas[key] = image;
+        });
+      promises.push(p);
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(promises);
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <h2 id="classe-scorecomponent-">Classe <em>ScoreComponent</em></h2>
+<p>Cette classe contient le pointage d’un joueur et met à
+jour la texture du composant <em>TextureComponent</em> lorsque
+le score change.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IScoreComponentDesc {
+  points: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">class</span> ScoreComponent <span class="hljs-keyword">extends</span> Component&lt;IScoreComponentDesc&gt; <span class="hljs-keyword">implements</span> ILogicComponent {
+  points: <span class="hljs-built_in">number</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>Initialise le pointage du joueur selon la propriété <code>points</code>
+de la description.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: IScoreComponentDesc) {
+    <span class="hljs-keyword">this</span>.points = descr.points;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <h3 id="m-thode-update-">Méthode <em>update</em></h3>
+<p>Mets à jour la texture du composant <em>TextureComponent</em> avec
+l’image correspondant au score du joueur, tiré de l’atlas
+du composant <em>TextureAtlasComponent</em>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update() {
+    <span class="hljs-keyword">const</span> textureComponent = <span class="hljs-keyword">this</span>.owner.getComponent&lt;TextureComponent&gt;(<span class="hljs-string">'Texture'</span>);
+    <span class="hljs-keyword">const</span> atlas = <span class="hljs-keyword">this</span>.owner.getComponent&lt;TextureAtlasComponent&gt;(<span class="hljs-string">'TextureAtlas'</span>).atlas;
+    textureComponent.image = atlas[<span class="hljs-keyword">this</span>.points];
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <h2 id="classe-refereecomponent-">Classe <em>RefereeComponent</em></h2>
+<p>Ce composant vérifie le résultat des collisions entre la
+balle et les joueurs et accorde les points appropriés.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IRefereeComponentDesc {
+  players: <span class="hljs-built_in">string</span>[];
+  ball: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> RefereeComponent <span class="hljs-keyword">extends</span> Component&lt;IRefereeComponentDesc&gt; <span class="hljs-keyword">implements</span> ILogicComponent {
+  players: IEntity[];
+  ball: IEntity;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <h3 id="m-thode-setup-">Méthode <em>setup</em></h3>
+<p>La méthode <em>setup</em> conserve les références vers les joueurs
+et la balle.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup(descr: IRefereeComponentDesc) {
+    <span class="hljs-keyword">this</span>.players = [];
+    descr.players.forEach(<span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> {
+      <span class="hljs-keyword">this</span>.players.push(Scene.current.findObject(name)!);
+    });
+    <span class="hljs-keyword">this</span>.ball = Scene.current.findObject(descr.ball)!;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <h3 id="m-thode-update-">Méthode <em>update</em></h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  update() {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <p>On commence par aller chercher les objets avec lesquel il
+y a possibilité de collision.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> ballCollider = <span class="hljs-keyword">this</span>.ball.getComponent&lt;ColliderComponent&gt;(<span class="hljs-string">'Collider'</span>);
+    <span class="hljs-keyword">const</span> ballCollision = ballCollider.collision;
+    <span class="hljs-keyword">const</span> ballInZone = ballCollider.inZone;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <p>Si il y a collision, ça veut dire que le joueur n’a pas
+raté son coup. Si on n’est pas dans une zone de collision,
+ça veut dire que la balle n’est pas rendu proche d’une palette.
+Dans ces deux cas, il n’y a pas eu point. On quitte donc
+la méthode.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (ballCollision || !ballInZone) {
+      <span class="hljs-keyword">return</span>;
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <p>On vérifie pour chaque joueur lequel a raté la balle.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.players.forEach(<span class="hljs-function">(<span class="hljs-params">player</span>) =&gt;</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>Si ce joueur n’est pas dans la zone de la balle, ça veut
+dire qu’il marque un point (ie.: c’est son adversaire qui
+a raté)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (player !== ballInZone) {
+        <span class="hljs-keyword">const</span> scoreObject = player.getChild(<span class="hljs-string">'score'</span>);
+        <span class="hljs-keyword">const</span> scoreComp = scoreObject!.getComponent&lt;ScoreComponent&gt;(<span class="hljs-string">'Score'</span>);
+        scoreComp.points++;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <p>On termine au 10e point en affichant un message et en
+réinitialisant les scores.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (scoreComp.points &gt; <span class="hljs-number">9</span>) {
+          alert(<span class="hljs-string">'Partie terminée'</span>);
+          <span class="hljs-keyword">this</span>.players.forEach(<span class="hljs-function">(<span class="hljs-params">p</span>) =&gt;</span> {
+            p.getChild(<span class="hljs-string">'score'</span>)!.getComponent&lt;ScoreComponent&gt;(<span class="hljs-string">'Score'</span>).points = <span class="hljs-number">0</span>;
+          });
+        }
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>Quand il y a point, on remet la balle en jeu à sa position
+et vélocité initiale.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.ball.getComponent&lt;PositionComponent&gt;(<span class="hljs-string">'Position'</span>).reset();
+      <span class="hljs-keyword">this</span>.ball.getComponent&lt;MotionComponent&gt;(<span class="hljs-string">'Motion'</span>).reset();
+    });
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <h1 id="classe-componentfactory-">Classe <em>ComponentFactory</em></h1>
+<p>Cette classe est le point d’entrée pour créer les composants.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">interface</span> IComponentCreators {
+  [<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-keyword">new</span> (owner: IEntity) =&gt; IComponent;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ComponentFactory {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-50">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-50">&#182;</a>
+              </div>
+              <h2 id="attribut-statique-componentcreators-">Attribut statique <em>componentCreators</em></h2>
+<p>Ce tableau associatif fait le lien entre les noms des composants
+tels qu’utilisés dans le fichier JSON et les classes de
+composants correspondants.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> componentCreators: IComponentCreators = {
+    Position: PositionComponent,
+    Texture: TextureComponent,
+    Motion: MotionComponent,
+    Collider: ColliderComponent,
+    Joystick: JoystickComponent,
+    TextureAtlas: TextureAtlasComponent,
+    Score: ScoreComponent,
+    Referee: RefereeComponent,
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-51">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-51">&#182;</a>
+              </div>
+              <h2 id="fonction-statique-create-">Fonction statique <em>create</em></h2>
+<p>Cette fonction instancie un nouveau composant choisi dans
+le tableau <code>componentCreators</code> depuis son nom.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> create(<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, owner: IEntity) {
+    <span class="hljs-keyword">const</span> comp = <span class="hljs-keyword">new</span> ComponentFactory.componentCreators[<span class="hljs-keyword">type</span>](owner);
+    comp.__type = <span class="hljs-keyword">type</span>;
+    <span class="hljs-keyword">return</span> comp;
+  }
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
